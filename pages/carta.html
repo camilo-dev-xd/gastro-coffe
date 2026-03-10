@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Carta | Menú de Comida Casera y Café - Gastro-Coffe</title>
+    <meta name="description"
+        content="Explora el menú de Gastro-Coffe: desayunos tradicionales, almuerzos caseros 100% naturales y el mejor café de especialidad en Bogotá.">
+    <link rel="canonical" href="https://gastrocoffe.co/pages/carta.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gastrocoffe.co/pages/carta.html">
+    <meta property="og:title" content="Nuestra Carta | Sabores Reales en Gastro-Coffe">
+    <meta property="og:description"
+        content="Desde alitas BBQ hasta el mejor tinto colombiano. Revisa nuestra carta hecha con amor.">
+    <meta property="og:image"
+        content="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7444?q=80&w=1200&auto=format&fit=crop">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Menú Gastro-Coffe | Comida Casera y Café">
+    <meta property="twitter:description" content="Explora nuestras especialidades gastronómicas en Bogotá.">
+    <meta property="twitter:image"
+        content="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7444?q=80&w=1200&auto=format&fit=crop">
+
+    <!-- Fuentes Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@1,400;1,600;1,700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- CSS Imports -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/hero.css">
+    <link rel="stylesheet" href="../css/sections.css">
+</head>
+
+<body>
+
+    <!-- Textura Global -->
+    <div class="noise-overlay"></div>
+    <div class="transition-overlay"></div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-logo" onclick="window.location.href='../index.html'">
+            <img src="../assets/svg/gastro-coffe_logo_claro.svg"
+                alt="Gastro-Coffe - Logo de restaurante y café de especialidad" class="logo-claro" id="logo-principal">
+        </div>
+        <div class="menu-toggle" id="mobile-menu-btn">
+            <span></span><span></span><span></span>
+        </div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="../index.html" class="nav-item" data-target="inicio">Inicio</a></li>
+            <li><a href="nosotros.html" class="nav-item" data-target="nosotros">Nosotros</a></li>
+            <li><a href="carta.html" class="nav-item active" data-target="carta">Carta</a></li>
+            <li><a href="contactanos.html" class="nav-item" data-target="contactanos">Contáctanos</a></li>
+        </ul>
+        <a href="https://wa.me/573123530829" target="_blank" class="btn btn-primary btn-nav btn-magnet">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                </path>
+            </svg>
+            Escríbenos ahora
+        </a>
+    </nav>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main id="app-content">
+        <!-- VISTA: CARTA -->
+        <section style="background:var(--beige-crema); padding-bottom:8rem;">
+            <header class="page-header">
+                <div class="hero-bg"
+                    style="background-image: url('https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=2000&auto=format&fit=crop'); opacity:0.3;">
+                </div>
+                <h1>Nuestra Carta: Sabores de Gastro-Coffe</h1>
+            </header>
+
+            <div class="container">
+                <div class="filtros-menu">
+                    <button class="filtro-btn active" data-filter="todos">Todos</button>
+                    <button class="filtro-btn" data-filter="desayunos">Desayunos</button>
+                    <button class="filtro-btn" data-filter="almuerzos">Almuerzos</button>
+                    <button class="filtro-btn" data-filter="cafe">Café & Bebidas</button>
+                </div>
+
+                <div class="section-title">
+                    <h2>Especialidades Gastronómicas</h2>
+                    <p class="font-drama">Cocina casera con alma</p>
+                </div>
+
+                <div class="menu-grid">
+                    <!-- Plato 1 -->
+                    <div class="menu-card" data-category="almuerzos">
+                        <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=600&auto=format&fit=crop"
+                            alt="Bandeja Corriente - Plato casero tradicional colombiano" class="menu-img"
+                            loading="lazy">
+                        <div class="menu-content">
+                            <div class="menu-header">
+                                <span class="menu-title">Bandeja Corriente</span>
+                                <span class="menu-price">$10.000</span>
+                            </div>
+                            <p class="menu-desc">Papas saladas, arroz, frijoles y el toque de la casa.</p>
+                        </div>
+                    </div>
+                    <!-- Plato 2 -->
+                    <div class="menu-card" data-category="almuerzos">
+                        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=600&auto=format&fit=crop"
+                            alt="Sopa del Día - Preparada con ingredientes frescos" class="menu-img" loading="lazy">
+                        <div class="menu-content">
+                            <div class="menu-header">
+                                <span class="menu-title">Sopa del Día</span>
+                                <span class="menu-price">$7.500</span>
+                            </div>
+                            <p class="menu-desc">Preparada cada mañana con ingredientes frescos del mercado.</p>
+                        </div>
+                    </div>
+                    <!-- Plato 3 -->
+                    <div class="menu-card" data-category="almuerzos">
+                        <img src="https://images.unsplash.com/photo-1529042410759-befb1204b468?q=80&w=600&auto=format&fit=crop"
+                            alt="Alitas BBQ crujientes bañadas en salsa secreta" class="menu-img" loading="lazy">
+                        <div class="menu-content">
+                            <div class="menu-header">
+                                <span class="menu-title">Alitas BBQ</span>
+                                <span class="menu-price">$13.000</span>
+                            </div>
+                            <p class="menu-desc">Crujientes, sabrosas y bañadas en nuestra salsa secreta.</p>
+                        </div>
+                    </div>
+                    <!-- Text Only items -->
+                    <div class="menu-card" data-category="almuerzos">
+                        <div class="menu-content">
+                            <div class="menu-header"><span class="menu-title">Caldo de Costilla</span><span
+                                    class="menu-price">$8.500</span></div>
+                            <p class="menu-desc">Tradición bogotana para levantar el ánimo.</p>
+                        </div>
+                    </div>
+                    <div class="menu-card" data-category="desayunos">
+                        <div class="menu-content">
+                            <div class="menu-header"><span class="menu-title">Huevos con Arroz</span><span
+                                    class="menu-price">$5.500</span></div>
+                            <p class="menu-desc">Desayuno clásico, sencillo y reconfortante.</p>
+                        </div>
+                    </div>
+                    <div class="menu-card" data-category="almuerzos">
+                        <div class="menu-content">
+                            <div class="menu-header"><span class="menu-title">Carne Asada</span><span
+                                    class="menu-price">$14.000</span></div>
+                            <p class="menu-desc">Corte magro, asado al punto con acompañamientos.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-block-2">
+                    <div class="section-title">
+                        <h2>Cafetería & Bebidas</h2>
+                        <p class="font-drama">Para acompañar o conversar</p>
+                    </div>
+                    <div class="menu-grid">
+                        <div class="menu-card" data-category="cafe">
+                            <img src="https://images.unsplash.com/photo-1598514982205-f36b96d1e8d4?q=80&w=600&auto=format&fit=crop"
+                                alt="Pollo asado" class="menu-img" loading="lazy">
+                            <div class="menu-content">
+                                <div class="menu-header"><span class="menu-title">Café Tinto</span><span
+                                        class="menu-price">$2.500</span></div>
+                                <p class="menu-desc">El clásico colombiano, recién filtrado.</p>
+                            </div>
+                        </div>
+                        <div class="menu-card" data-category="cafe">
+                            <img src="https://images.unsplash.com/photo-1598514982205-f36b96d1e8d4?q=80&w=600&auto=format&fit=crop"
+                                alt="Pollo asado" class="menu-img" loading="lazy">
+                            <div class="menu-content">
+                                <div class="menu-header"><span class="menu-title">Café con Leche / Latte</span><span
+                                        class="menu-price">$4.500</span></div>
+                                <p class="menu-desc">Cremoso, reconfortante y con arte latte.</p>
+                            </div>
+                        </div>
+                        <div class="menu-card" data-category="cafe">
+                            <img src="https://images.unsplash.com/photo-1598514982205-f36b96d1e8d4?q=80&w=600&auto=format&fit=crop"
+                                alt="Pollo asado" class="menu-img" loading="lazy">
+                            <div class="menu-content">
+                                <div class="menu-header"><span class="menu-title">Arepas de Queso</span><span
+                                        class="menu-price">$2.500</span></div>
+                                <p class="menu-desc">Recién hechas, doradas por fuera, queso derretido adentro.</p>
+                            </div>
+                        </div>
+                        <div class="menu-card" data-category="cafe">
+                            <img src="https://images.unsplash.com/photo-1598514982205-f36b96d1e8d4?q=80&w=600&auto=format&fit=crop"
+                                alt="Pollo asado" class="menu-img" loading="lazy">
+                            <div class="menu-content">
+                                <div class="menu-header"><span class="menu-title">Empanadas & Buñuelos</span><span
+                                        class="menu-price">$2.500 - $3.000</span></div>
+                                <p class="menu-desc">Doradas, crujientes, esponjosas y calientes.</p>
+                            </div>
+                        </div>
+                        <div class="menu-card" data-category="cafe">
+                            <img src="https://images.unsplash.com/photo-1598514982205-f36b96d1e8d4?q=80&w=600&auto=format&fit=crop"
+                                alt="Pollo asado" class="menu-img" loading="lazy">
+                            <div class="menu-content">
+                                <div class="menu-header"><span class="menu-title">Cerveza Nacional</span><span
+                                        class="menu-price">$7.000</span></div>
+                                <p class="menu-desc">Bien fría para terminar la tarde.</p>
+                            </div>
+                        </div>
+                        <div class="menu-card" data-category="cafe">
+                            <img src="https://images.unsplash.com/photo-1598514982205-f36b96d1e8d4?q=80&w=600&auto=format&fit=crop"
+                                alt="Pollo asado" class="menu-img" loading="lazy">
+                            <div class="menu-content">
+                                <div class="menu-header"><span class="menu-title">Galguerías</span><span
+                                        class="menu-price">$1.000 - $5.000</span></div>
+                                <p class="menu-desc">Galletas, dulces, ponques, gomitas para el antojo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER GLOBALES -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col" style="padding-right: 2rem;">
+                <div class="nav-logo footer-logo">
+                    <img src="../assets/svg/gastro-coffe_logo_claro.svg" alt="Gastro-Coffe - Logo Blanco"
+                        class="footer-logo-img">
+                </div>
+                <p class="footer-slogan">Comida de verdad, hecha con amor.</p>
+                <div class="status-indicator">
+                    <div class="dot-pulsante"></div>
+                    Abierto ahora · Sistema activo · Bogotá, Colombia
+                </div>
+            </div>
+            <div class="footer-col">
+                <h5>Navegación</h5>
+                <ul class="footer-links">
+                    <li><a onclick="app.navigate('inicio')">Inicio</a></li>
+                    <li><a onclick="app.navigate('nosotros')">Nosotros</a></li>
+                    <li><a onclick="app.navigate('carta')">La Carta</a></li>
+                    <li><a onclick="app.navigate('contactanos')">Ubicación</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Redes</h5>
+                <ul class="footer-links">
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">TikTok</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Contacto Rápido</h5>
+                <ul class="footer-links font-datos" style="font-size: 0.9rem;">
+                    <li>gastro-coffe@gmail.com</li>
+                    <li>+57 312 3530829</li>
+                    <li>Km 3 Vía Suba-Cota</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Gastro-Coffe · Todos los derechos reservados. · Creado por Neyder Arias
+        </div>
+    </footer>
+
+    <!-- JS Imports -->
+    <script src="../js/ui.js"></script>
+    <script src="../js/filters.js"></script>
+
+    <!-- Script de Inicialización -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.registerPlugin(ScrollTrigger);
+            initUI();
+            initFilters();
+        });
+    </script>
+</body>
+
+</html>

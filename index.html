@@ -1,540 +1,295 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-CO">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Gastro-Coffe: Comida casera 100% natural, café de especialidad y un ambiente acogedor en Bogotá">
-  <meta name="theme-color" content="#3E2723">
-  <title>Gastro-Coffe | Comida de Verdad, Hecha con Amor</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gastro-Coffe | Café de Especialidad y Comida Casera en Bogotá</title>
+    <meta name="description"
+        content="Descubre Gastro-Coffe: el mejor café de especialidad y comida casera 100% natural en el Km 3 Vía Suba-Cota, Bogotá. Un rincón acogedor hecho con amor.">
+    <link rel="canonical" href="https://gastrocoffe.co/">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gastrocoffe.co/">
+    <meta property="og:title" content="Gastro-Coffe | Comida de verdad, hecha con amor">
+    <meta property="og:description"
+        content="Café de especialidad, platos caseros y un ambiente único en Bogotá. Visítanos en la Vía Suba-Cota.">
+    <meta property="og:image"
+        content="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1200&auto=format&fit=crop">
 
-  <!-- Estilos -->
-  <link rel="stylesheet" href="css/styles.css">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://gastrocoffe.co/">
+    <meta property="twitter:title" content="Gastro-Coffe | Café de Especialidad en Bogotá">
+    <meta property="twitter:description" content="Comida casera 100% natural y el mejor ambiente en Suba.">
+    <meta property="twitter:image"
+        content="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1200&auto=format&fit=crop">
+
+    <!-- Fuentes Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@1,400;1,600;1,700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- CSS Imports -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/hero.css">
+    <link rel="stylesheet" href="css/sections.css">
 </head>
+
 <body>
-  <!-- ═════════════════════════════════════════
-       NAVBAR FLOTANTE
-       ═════════════════════════════════════════ -->
-  <nav class="navbar">
-    <a href="index.html" class="nav-logo">
-      <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
-      </svg>
-      Gastro-Coffe
-    </a>
 
-    <ul class="nav-links">
-      <li><a href="#inicio" class="active">Inicio</a></li>
-      <li><a href="nosotros.html">Nosotros</a></li>
-      <li><a href="carta.html">Carta</a></li>
-      <li><a href="contactanos.html">Contáctanos</a></li>
-    </ul>
+    <!-- Textura Global -->
+    <div class="noise-overlay"></div>
 
-    <button class="btn btn-primary nav-cta" onclick="window.location.hash='#carta'">Ver Carta</button>
-
-    <button class="hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  </nav>
-
-  <!-- ═════════════════════════════════════════
-       HERO SECTION
-       ═════════════════════════════════════════ -->
-  <section class="hero" id="inicio">
-    <div class="hero-content">
-      <h1>Comida de verdad,</h1>
-      <p class="hero-subtitle-italic">hecha con amor.</p>
-      <p class="hero-description">
-        Café de especialidad · Platos caseros · Un rincón tuyo en Bogotá
-      </p>
-      <div class="hero-buttons">
-        <button class="btn btn-primary" onclick="window.location.href='carta.html'">Ver la Carta</button>
-        <button class="btn btn-secondary" onclick="document.getElementById('ubicacion').scrollIntoView({behavior: 'smooth'})">Cómo llegar</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═════════════════════════════════════════
-       SECCIÓN: NÚMEROS
-       ═════════════════════════════════════════ -->
-  <section class="numbers-section">
-    <div class="numbers-grid">
-      <!-- Card 1: Horarios -->
-      <div class="number-card number-card-1">
-        <span class="label">
-          <span class="pulse-indicator">
-            <span class="pulse-dot"></span>
-            Abierto Hoy
-          </span>
-        </span>
-        <h3>Horarios</h3>
-        <div class="content"></div>
-      </div>
-
-      <!-- Card 2: Ofertas -->
-      <div class="number-card number-card-2">
-        <span class="label">Lo Mejor</span>
-        <h3>En la Mesa</h3>
-        <div class="content-animated"></div>
-      </div>
-
-      <!-- Card 3: Ubicación -->
-      <div class="number-card number-card-3">
-        <span class="label">Ubícanos</span>
-        <h3>Tu Barrio</h3>
-        <div class="content-animated"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═════════════════════════════════════════
-       SECCIÓN: SOBRE NOSOTROS
-       ═════════════════════════════════════════ -->
-  <section class="about-section">
-    <div class="about-content">
-      <div class="about-text">
-        <h2>Nuestro Corazón</h2>
-        <p>En <span class="italic-drama">Gastro Coffe</span>, creemos que la mejor comida nace del corazón y se prepara con amor.</p>
-        <p>Somos un hogar donde cada plato cuenta una historia y cada visita se convierte en un recuerdo especial.</p>
-        <p>Ubicados en el corazón de Bogotá, en la zona de Suba, nacimos del sueño de crear un espacio que combinara la calidez del hogar con la excelencia culinaria.</p>
-        <p>Nuestro compromiso: <span class="italic-drama">servir comida casera 100% natural en un ambiente que invite a quedarse, a conversar y a disfrutar.</span></p>
-      </div>
-      <div class="about-image">
-        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600&h=600&fit=crop" alt="Interior del local Gastro-Coffe" loading="lazy">
-      </div>
-    </div>
-  </section>
-
-  <!-- ═════════════════════════════════════════
-       SECCIÓN: CARTA / MENÚ
-       ═════════════════════════════════════════ -->
-  <section class="menu-section" id="carta">
-    <!-- Bloque 1: Especialidades -->
-    <div class="menu-block">
-      <div class="menu-block-title">
-        <h2>Especialidades Gastronómicas</h2>
-        <p class="italic-drama">Cocina casera con alma</p>
-      </div>
-
-      <div class="menu-grid">
-        <!-- Bandeja Corriente -->
-        <div class="menu-card">
-          <div class="menu-card-image">
-            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop" alt="Bandeja Corriente" loading="lazy">
-          </div>
-          <div class="menu-card-content">
-            <h3>Bandeja Corriente</h3>
-            <p class="menu-card-description">Papas saladas, arroz, frijoles, carne y bandeja completa de hogar</p>
-            <p class="menu-card-price">$10.000</p>
-          </div>
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-logo" onclick="app.navigate('inicio')">
+            <!-- Logo completo SVG con versión clara y oscura -->
+            <img src="assets/svg/gastro-coffe_logo_claro.svg"
+                alt="Gastro-Coffe - Logo de restaurante y café de especialidad" class="logo-claro" id="logo-principal">
         </div>
-
-        <!-- Sopa del Día -->
-        <div class="menu-card">
-          <div class="menu-card-image">
-            <img src="https://images.unsplash.com/photo-1547069981-4d71bcdd2065?w=400&h=300&fit=crop" alt="Sopa del Día" loading="lazy">
-          </div>
-          <div class="menu-card-content">
-            <h3>Sopa del Día</h3>
-            <p class="menu-card-description">Preparada cada mañana con ingredientes frescos y naturales</p>
-            <p class="menu-card-price">$7.500</p>
-          </div>
+        <div class="menu-toggle" id="mobile-menu-btn">
+            <span></span><span></span><span></span>
         </div>
-
-        <!-- Caldo de Costilla -->
-        <div class="menu-card">
-          <div class="menu-card-image">
-            <img src="https://images.unsplash.com/photo-1547069981-4d71bcdd2065?w=400&h=300&fit=crop" alt="Caldo de Costilla" loading="lazy">
-          </div>
-          <div class="menu-card-content">
-            <h3>Caldo de Costilla</h3>
-            <p class="menu-card-description">Tradición bogotana, cálido y reconfortante</p>
-            <p class="menu-card-price">$8.500</p>
-          </div>
-        </div>
-
-        <!-- Huevos con Arroz -->
-        <div class="menu-card">
-          <div class="menu-card-image">
-            <img src="https://images.unsplash.com/photo-1585687572381-37766e0241c0?w=400&h=300&fit=crop" alt="Huevos con Arroz" loading="lazy">
-          </div>
-          <div class="menu-card-content">
-            <h3>Huevos con Arroz</h3>
-            <p class="menu-card-description">Desayuno clásico presentado con amor y frescura</p>
-            <p class="menu-card-price">$5.500</p>
-          </div>
-        </div>
-
-        <!-- Carne Asada -->
-        <div class="menu-card">
-          <div class="menu-card-image">
-            <img src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=400&h=300&fit=crop" alt="Carne Asada" loading="lazy">
-          </div>
-          <div class="menu-card-content">
-            <h3>Carne Asada</h3>
-            <p class="menu-card-description">Plato individual, tierna y perfectamente sazonada</p>
-            <p class="menu-card-price">$14.000</p>
-          </div>
-        </div>
-
-        <!-- Alitas BBQ -->
-        <div class="menu-card">
-          <div class="menu-card-image">
-            <img src="https://images.unsplash.com/photo-1598808503676-4ac38b5fcb10?w=400&h=300&fit=crop" alt="Alitas BBQ" loading="lazy">
-          </div>
-          <div class="menu-card-content">
-            <h3>Alitas BBQ</h3>
-            <p class="menu-card-description">Crujientes por fuera, tiernas por dentro, sabor al fuego</p>
-            <p class="menu-card-price">$13.000</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bloque 2: Cafetería & Bebidas -->
-    <div class="menu-block" style="background-color: var(--beige-crema); padding: 4rem 0; margin: 3rem 0;">
-      <div class="menu-block-title">
-        <h2>Cafetería & Bebidas</h2>
-        <p class="italic-drama">Donde el sabor es el protagonista</p>
-      </div>
-
-      <div class="menu-grid">
-        <!-- Café Tinto -->
-        <div class="menu-card">
-          <div class="menu-card-image">
-            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=300&fit=crop" alt="Café Tinto" loading="lazy">
-          </div>
-          <div class="menu-card-content">
-            <h3>Café Tinto</h3>
-            <p class="menu-card-description">El clásico colombiano, tostión oscura y sabor profundo</p>
-            <p class="menu-card-price">$2.500</p>
-          </div>
-        </div>
-
-        <!-- Café con Leche -->
-        <div class="menu-card">
-          <div class="menu-card-image">
-            <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&h=300&fit=crop" alt="Café con Leche" loading="lazy">
-          </div>
-          <div class="menu-card-content">
-            <h3>Café con Leche</h3>
-            <p class="menu-card-description">Cremoso, reconfortante, ideal para arrancar el día</p>
-            <p class="menu-card-price">$4.500</p>
-          </div>
-        </div>
-
-        <!-- Arepas de Queso -->
-        <div class="menu-card">
-          <div class="menu-card-image">
-            <img src="https://images.unsplash.com/photo-1582797402907-3cf89b8daea5?w=400&h=300&fit=crop" alt="Arepas de Queso" loading="lazy">
-          </div>
-          <div class="menu-card-content">
-            <h3>Arepas de Queso</h3>
-            <p class="menu-card-description">Recién hechas, doradas, con queso fresco derretido</p>
-            <p class="menu-card-price">$2.500</p>
-          </div>
-        </div>
-
-        <!-- Empanadas -->
-        <div class="menu-card">
-          <div class="menu-card-image">
-            <img src="https://images.unsplash.com/photo-1584622181564-1d5f21f5f5d8?w=400&h=300&fit=crop" alt="Empanadas" loading="lazy">
-          </div>
-          <div class="menu-card-content">
-            <h3>Empanadas</h3>
-            <p class="menu-card-description">Doradas y crujientes, rellenas de carne o papa con queso</p>
-            <p class="menu-card-price">$2.500</p>
-          </div>
-        </div>
-
-        <!-- Buñuelos -->
-        <div class="menu-card">
-          <div class="menu-card-image">
-            <img src="https://images.unsplash.com/photo-1585518419759-52e2d9fcf9e3?w=400&h=300&fit=crop" alt="Buñuelos" loading="lazy">
-          </div>
-          <div class="menu-card-content">
-            <h3>Buñuelos</h3>
-            <p class="menu-card-description">Esponjosos y calientes, servidos con miel o chancaca</p>
-            <p class="menu-card-price">$3.000</p>
-          </div>
-        </div>
-
-        <!-- Gaseosa -->
-        <div class="menu-card">
-          <div class="menu-card-image">
-            <img src="https://images.unsplash.com/photo-1538095748098-44f88d17c0d3?w=400&h=300&fit=crop" alt="Gaseosas" loading="lazy">
-          </div>
-          <div class="menu-card-content">
-            <h3>Gaseosas</h3>
-            <p class="menu-card-description">Bebidas variadas, bien frías, perfectas para refrescarse</p>
-            <p class="menu-card-price">$3.000</p>
-          </div>
-        </div>
-
-        <!-- Agua Embotellada -->
-        <div class="menu-card">
-          <div class="menu-card-image">
-            <img src="https://images.unsplash.com/photo-1585515320310-c2d43f6b0322?w=400&h=300&fit=crop" alt="Agua Embotellada" loading="lazy">
-          </div>
-          <div class="menu-card-content">
-            <h3>Agua Embotellada</h3>
-            <p class="menu-card-description">Fría, pura, hidratación perfecta en cualquier momento</p>
-            <p class="menu-card-price">$2.500</p>
-          </div>
-        </div>
-
-        <!-- Cerveza Nacional -->
-        <div class="menu-card">
-          <div class="menu-card-image">
-            <img src="https://images.unsplash.com/photo-1608270861620-7adf0c1b8b6a?w=400&h=300&fit=crop" alt="Cerveza Nacional" loading="lazy">
-          </div>
-          <div class="menu-card-content">
-            <h3>Cerveza Nacional</h3>
-            <p class="menu-card-description">Bien fría, acompañante perfecto para cualquier momento</p>
-            <p class="menu-card-price">$7.000</p>
-          </div>
-        </div>
-
-        <!-- Galguería -->
-        <div class="menu-card">
-          <div class="menu-card-image">
-            <img src="https://images.unsplash.com/photo-1535920527030-ddc5013c6008?w=400&h=300&fit=crop" alt="Galguería" loading="lazy">
-          </div>
-          <div class="menu-card-content">
-            <h3>Galguería</h3>
-            <p class="menu-card-description">Galletas, dulces, ponques, gomitas y más delicias</p>
-            <p class="menu-card-price">$1.000–$5.000</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Botón Ver Carta Completa -->
-    <div class="menu-cta-button">
-      <button class="btn btn-primary" onclick="window.location.href='carta.html'">Ver Carta Completa</button>
-    </div>
-  </section>
-
-  <!-- ═════════════════════════════════════════
-       SECCIÓN: MANIFIESTO
-       ═════════════════════════════════════════ -->
-  <section class="manifesto-section">
-    <div class="manifesto-content">
-      <p class="question">La mayoría pregunta:</p>
-      <p class="question">¿Dónde hay para comer?</p>
-      <p class="question" style="margin-bottom: 3rem;"></p>
-      <p class="answer">Nosotros respondemos:</p>
-      <p class="answer">¿Qué quieres que recuerdes<br>de este momento?</p>
-    </div>
-  </section>
-
-  <!-- ═════════════════════════════════════════
-       SECCIÓN: EXPERIENCIA
-       ═════════════════════════════════════════ -->
-  <section class="experience-section">
-    <div class="experience-container">
-      <!-- Card 1: El Espacio -->
-      <div class="experience-card experience-card-1">
-        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="50" cy="50" r="35" stroke="currentColor" stroke-width="2" fill="var(--naranja-calido)"/>
-          <ellipse cx="50" cy="65" rx="20" ry="8" stroke="var(--cafe-oscuro)" stroke-width="1.5" fill="none"/>
-          <path d="M 45 45 Q 50 30 55 45" stroke="var(--cafe-oscuro)" stroke-width="2" fill="none" stroke-linecap="round"/>
-        </svg>
-        <h2>El Espacio</h2>
-        <p>Un rincón pensado para ti. Ya sea para trabajar, reunirte, estudiar o simplemente desconectar. Gastro-Coffe es <span class="italic-drama">tu segundo hogar en Suba.</span></p>
-      </div>
-
-      <!-- Card 2: El Sabor -->
-      <div class="experience-card experience-card-2">
-        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="50" cy="50" r="30" stroke="var(--cafe-oscuro)" stroke-width="2" fill="none"/>
-          <path d="M 50 35 L 60 65 L 40 65 Z" fill="var(--cafe-oscuro)" opacity="0.8"/>
-          <text x="50" y="50" text-anchor="middle" font-size="20" fill="var(--cafe-oscuro)" font-weight="bold">🍽️</text>
-        </svg>
-        <h2>El Sabor</h2>
-        <p><span class="italic-drama">Recetas que vienen de la familia, no de un manual.</span> Ingredientes naturales, sin artificios. Cada plato cuenta la historia de quién lo prepara.</p>
-      </div>
-
-      <!-- Card 3: La Comunidad -->
-      <div class="experience-card experience-card-3">
-        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="30" cy="30" r="15" stroke="white" stroke-width="2" fill="none"/>
-          <circle cx="70" cy="30" r="15" stroke="white" stroke-width="2" fill="none"/>
-          <circle cx="50" cy="65" r="15" stroke="white" stroke-width="2" fill="none"/>
-          <circle cx="50" cy="50" r="3" fill="var(--naranja-calido)"/>
-        </svg>
-        <h2>La Comunidad</h2>
-        <p><span class="italic-drama">Tu vecindario tiene sabor.</span> Gastro-Coffe es donde se encuentran los sueños, las historias, las amistades. Km 3 Vía Suba-Cota: tu lugar en Bogotá.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═════════════════════════════════════════
-       SECCIÓN: CONTACTO
-       ═════════════════════════════════════════ -->
-  <section class="contact-section" id="ubicacion">
-    <div class="container">
-      <h2 style="text-align: center; margin-bottom: 3rem;">Contáctanos</h2>
-
-      <div class="contact-content">
-        <!-- Info de Contacto -->
-        <div class="contact-info">
-          <!-- Email -->
-          <div class="contact-item">
-            <div class="contact-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
-                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-              </svg>
-            </div>
-            <div class="contact-text">
-              <h3>Email</h3>
-              <p><a href="mailto:gastro-coffe@gmail.com">gastro-coffe@gmail.com</a></p>
-            </div>
-          </div>
-
-          <!-- Teléfono -->
-          <div class="contact-item">
-            <div class="contact-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-              </svg>
-            </div>
-            <div class="contact-text">
-              <h3>Teléfono</h3>
-              <p><a href="tel:+573123530829">+57 312 3530829</a></p>
-            </div>
-          </div>
-
-          <!-- Dirección -->
-          <div class="contact-item">
-            <div class="contact-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                <circle cx="12" cy="10" r="3"></circle>
-              </svg>
-            </div>
-            <div class="contact-text">
-              <h3>Dirección</h3>
-              <p>
-                Km 3 Vía Suba-Cota<br>
-                Cl. 171 No. 93-55<br>
-                Bogotá, Colombia
-              </p>
-            </div>
-          </div>
-
-          <!-- Horarios -->
-          <div class="contact-item">
-            <div class="contact-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="12" r="10"></circle>
-                <polyline points="12 6 12 12 16 14"></polyline>
-              </svg>
-            </div>
-            <div class="contact-text">
-              <h3 class="monospace-datos">Horarios</h3>
-              <p class="monospace-datos">
-                Lun - Vie: 6:00 am – 7:00 pm<br>
-                Sáb - Dom: 6:00 am – 8:00 pm
-              </p>
-            </div>
-          </div>
-
-          <!-- WhatsApp -->
-          <a href="https://wa.me/573123530829" class="btn btn-primary" style="margin-top: 1rem; display: inline-flex;">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.159-.173.193-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004c-1.462 0-2.891.572-3.94 1.601-1.049 1.028-1.628 2.41-1.628 3.873 0 3.045 2.478 5.525 5.571 5.525 1.514 0 2.946-.578 4.016-1.627 1.069-1.05 1.657-2.468 1.657-3.95 0-3.045-2.478-5.522-5.572-5.522m5.281-3.424c-1.572-1.529-3.758-2.378-6.036-2.378-4.708 0-8.533 3.824-8.533 8.533 0 1.504.391 2.978 1.131 4.281L2.05 21.94l4.689-1.438c1.268.731 2.719 1.118 4.227 1.118 4.708 0 8.534-3.824 8.534-8.533 0-2.284-.898-4.43-2.531-6.042Z"/>
+        <ul class="nav-links" id="nav-links">
+            <li><a onclick="app.navigate('inicio')" class="nav-item active" data-target="inicio">Inicio</a></li>
+            <li><a onclick="app.navigate('nosotros')" class="nav-item" data-target="nosotros">Nosotros</a></li>
+            <li><a onclick="app.navigate('carta')" class="nav-item" data-target="carta">Carta</a></li>
+            <li><a onclick="app.navigate('contactanos')" class="nav-item" data-target="contactanos">Contáctanos</a></li>
+        </ul>
+        <a href="https://wa.me/573123530829" target="_blank" class="btn btn-primary btn-nav btn-magnet">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                </path>
             </svg>
-            Escríbenos por WhatsApp
-          </a>
-        </div>
+            Escríbenos ahora
+        </a>
+    </nav>
 
-        <!-- Mapa -->
-        <div class="contact-map">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.7814156659357!2d-74.04849!3d4.749258!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e40f5c5c5c5c5c5%3A0x5c5c5c5c5c5c5c5c!2sKm%203%20V%C3%ADa%20Suba-Cota%2C%20Cl.%20171%20No.%2093-55%2C%20Bogot%C3%A1!5e0!3m2!1ses!2sco!4v1234567890" width="100%" height="100%" style="border:none;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-      </div>
-    </div>
-  </section>
+    <!-- CONTENEDOR PRINCIPAL DE VISTAS (SPA Setup) -->
+    <main id="app-content">
 
-  <!-- ═════════════════════════════════════════
-       FOOTER
-       ═════════════════════════════════════════ -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <!-- Bloque 1: Identidad -->
-        <div class="footer-block">
-          <div class="footer-logo">
-            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
-            </svg>
-            Gastro-Coffe
-          </div>
-          <p class="footer-tagline">Comida de verdad, hecha con amor.</p>
-          <div class="footer-socials">
-            <a href="https://facebook.com" class="social-icon" title="Facebook">
-              <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-              </svg>
-            </a>
-            <a href="https://tiktok.com" class="social-icon" title="TikTok">
-              <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19.498 3h-3.496v12c0 1.657-1.343 3-3 3-1.657 0-3-1.343-3-3s1.343-3 3-3c.292 0 .575.044.847.127V5.128A6.994 6.994 0 0 0 9.002 3c-3.859 0-7 3.14-7 7v10h3.5v-10c0-1.657 1.343-3 3-3 1.657 0 3 1.343 3 3v10h3.5s0-8.926 0-10c0-1.657 1.343-3 3-3z"/>
-              </svg>
-            </a>
-          </div>
-        </div>
+        <!-- ============================================================== -->
+        <!-- VISTA: INICIO -->
+        <!-- ============================================================== -->
+        <section id="view-inicio" class="view-section active">
 
-        <!-- Bloque 2: Navegación -->
-        <div class="footer-block">
-          <h3>Navegación</h3>
-          <ul>
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="nosotros.html">Nosotros</a></li>
-            <li><a href="carta.html">Carta</a></li>
-            <li><a href="contactanos.html">Contáctanos</a></li>
-          </ul>
-        </div>
+            <!-- Hero -->
+            <header class="hero">
+                <div class="hero-bg" id="hero-bg"></div>
+                <div class="hero-overlay"></div>
+                <div class="container hero-content">
+                    <h1 class="hero-anim">Gastro-Coffe: Comida de verdad,</h1>
+                    <span class="drama-text hero-anim">hecha con amor.</span>
+                    <p class="font-datos hero-anim">Café de especialidad · Platos caseros · Un rincón tuyo en Bogotá</p>
+                    <div class="hero-btns hero-anim">
+                        <button class="btn btn-primary btn-magnet" onclick="app.navigate('carta')">Ver la Carta</button>
+                        <button class="btn btn-outline btn-magnet" onclick="app.navigate('contactanos')">Cómo
+                            llegar</button>
+                    </div>
+                </div>
+            </header>
 
-        <!-- Bloque 3: Información -->
-        <div class="footer-block">
-          <h3>Información</h3>
-          <ul>
-            <li><a href="tel:+573123530829">+57 312 3530829</a></li>
-            <li><a href="mailto:gastro-coffe@gmail.com">gastro-coffe@gmail.com</a></li>
-            <li><a href="https://wa.me/573123530829">WhatsApp</a></li>
-          </ul>
-        </div>
+            <!-- Nuestros Números -->
+            <section class="numeros-section">
+                <div class="container numeros-grid">
+                    <!-- Panel 1 -->
+                    <div class="panel-card">
+                        <div class="panel-header">
+                            <div class="dot-pulsante"></div>
+                            Abierto hoy
+                        </div>
+                        <div class="horario-data font-datos">
+                            Lun – Vie &nbsp;&nbsp;6:00 am – 7:00 pm<br>
+                            Sáb – Dom &nbsp;&nbsp;6:00 am – 8:00 pm<span class="cursor-blink"></span>
+                        </div>
+                    </div>
+                    <!-- Panel 2 -->
+                    <div class="panel-card" style="display:flex; flex-direction:column; justify-content:center;">
+                        <div class="panel-header" style="margin-bottom:0.5rem;">Lo que ponemos en la mesa</div>
+                        <div class="alternating-container">
+                            <div class="alt-text active">Comida casera 100% natural</div>
+                            <div class="alt-text">Café de especialidad</div>
+                            <div class="alt-text">Ambiente para quedarse</div>
+                        </div>
+                    </div>
+                    <!-- Panel 3 -->
+                    <div class="panel-card">
+                        <div class="panel-header">Dónde estamos</div>
+                        <div class="mapa-animado">
+                            <div class="map-grid">
+                                <div class="map-cell"></div>
+                                <div class="map-cell"></div>
+                                <div class="map-cell"></div>
+                                <div class="map-cell"></div>
+                                <div class="map-cell"></div>
+                                <div class="map-cell"></div>
+                                <div class="map-cell"></div>
+                                <div class="map-cell"></div>
+                            </div>
+                            <div class="map-target" id="map-point"></div>
+                            <!-- Cursor SVG -->
+                            <svg class="map-cursor" id="map-cursor" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m3 3 7.07 16.97 2.51-7.39 7.39-2.51L3 3z" />
+                                <path d="m13 13 6 6" />
+                            </svg>
+                        </div>
+                        <div class="map-address" id="map-text font-datos">
+                            Km 3 Vía Suba-Cota<br>Bogotá
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        <!-- Bloque 4: Estado -->
-        <div class="footer-block">
-          <div class="footer-status">
-            <div class="footer-status-indicator">
-              <span class="status-dot"></span>
-              <span>Abierto ahora</span>
+            <!-- Sobre Nosotros (Snippet) -->
+            <section class="about-section">
+                <div class="container about-grid">
+                    <div class="about-text">
+                        <h2>El alma del lugar</h2>
+                        <p class="split-text">En Gastro Coffe, creemos que la mejor comida nace del corazón y se prepara
+                            con amor.</p>
+                        <p class="font-drama split-text">Somos un hogar donde cada plato cuenta una historia y cada
+                            visita se convierte en un recuerdo especial.</p>
+                        <button class="btn btn-primary" style="margin-top:1rem;"
+                            onclick="app.navigate('nosotros')">Conocer nuestra historia</button>
+                    </div>
+                    <div class="about-img-wrapper" id="about-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1000&auto=format&fit=crop"
+                            alt="Interior acogedor y rústico de Gastro-Coffe en Bogotá" class="about-img"
+                            loading="lazy">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Manifiesto (Parallax) -->
+            <section class="manifiesto">
+                <div class="manifiesto-bg" id="manifiesto-bg"></div>
+                <div class="container manifiesto-content">
+                    <p class="manifiesto-q1 split-text-manifiesto">La mayoría pregunta:<br>¿Dónde hay para comer?</p>
+                    <p class="font-drama manifiesto-q2 split-text-manifiesto">Nosotros respondemos:<br>¿Qué quieres que
+                        recuerdes<br>de este momento?</p>
+                </div>
+            </section>
+
+            <!-- Experiencia (Stacked Cards) -->
+            <section class="experiencia">
+                <div class="container section-title" style="color:var(--blanco-calido); margin-bottom: 2rem;">
+                    <h2>Experiencia Gastro-Coffe</h2>
+                </div>
+                <div class="container stacked-cards-container" id="stacked-container">
+
+                    <div class="stack-card card-1">
+                        <svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="var(--naranja-calido)"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 8h1a4 4 0 1 1 0 8h-1" />
+                            <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z" />
+                            <path d="M6 2v2" class="vapor-1" />
+                            <path d="M10 2v2" class="vapor-2" />
+                            <path d="M14 2v2" class="vapor-3" />
+                        </svg>
+                        <h3>El espacio</h3>
+                        <p>Un rincón pensado para ti. Ya sea para trabajar, reunirte con amigos o simplemente
+                            desconectar de la ciudad con una buena taza en la mano.</p>
+                    </div>
+
+                    <div class="stack-card card-2">
+                        <svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="var(--cafe-oscuro)"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m12 14 4-4" />
+                            <path d="M3.34 19a10 10 0 1 1 17.32 0" />
+                        </svg>
+                        <h3>El sabor</h3>
+                        <p>Recetas que vienen de la familia, no de un manual. Usamos ingredientes naturales, sin
+                            artificios, porque la comida de verdad no necesita filtros.</p>
+                    </div>
+
+                    <div class="stack-card card-3">
+                        <svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="var(--naranja-calido)"
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                            <circle cx="12" cy="10" r="3" />
+                        </svg>
+                        <h3>La comunidad</h3>
+                        <p>Tu vecindario tiene sabor. No somos una cadena fría; somos parte de Suba. Conocemos tu nombre
+                            y cómo te gusta el café.</p>
+                    </div>
+
+                </div>
+            </section>
+        </section>
+
+    </main>
+
+    <!-- FOOTER GLOBALES -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col" style="padding-right: 2rem;">
+                <div class="nav-logo footer-logo">
+                    <img src="assets/svg/gastro-coffe_logo_claro.svg" alt="Gastro-Coffe - Logo Blanco"
+                        class="footer-logo-img">
+                </div>
+                <p class="footer-slogan">Comida de verdad, hecha con amor.</p>
+                <div class="status-indicator">
+                    <div class="dot-pulsante"></div>
+                    Abierto ahora · Sistema activo · Bogotá, Colombia
+                </div>
             </div>
-            <p style="font-size: 0.85rem; opacity: 0.7;">Sistema activo · Bogotá, Colombia</p>
-          </div>
+            <div class="footer-col">
+                <h5>Navegación</h5>
+                <ul class="footer-links">
+                    <li><a onclick="app.navigate('inicio')">Inicio</a></li>
+                    <li><a onclick="app.navigate('nosotros')">Nosotros</a></li>
+                    <li><a onclick="app.navigate('carta')">La Carta</a></li>
+                    <li><a onclick="app.navigate('contactanos')">Ubicación</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Redes</h5>
+                <ul class="footer-links">
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">TikTok</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Contacto Rápido</h5>
+                <ul class="footer-links font-datos" style="font-size: 0.9rem;">
+                    <li>gastro-coffe@gmail.com</li>
+                    <li>+57 312 3530829</li>
+                    <li>Km 3 Vía Suba-Cota</li>
+                </ul>
+            </div>
         </div>
-      </div>
+        <div class="footer-bottom">
+            &copy; 2026 Gastro-Coffe · Todos los derechos reservados. · Creado por Neyder Arias
+        </div>
+    </footer>
 
-      <!-- Línea inferior -->
-      <div class="footer-bottom">
-        <p>© 2025 Gastro-Coffe · Todos los derechos reservados · Hecho con ☕ y ❤️ en Bogotá</p>
-      </div>
-    </div>
-  </footer>
+    <!-- JS Imports en orden correcto -->
+    <script src="js/app.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/animations.js"></script>
 
-  <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
-  <script src="js/main.js"></script>
+    <!-- Script de Inicialización -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.registerPlugin(ScrollTrigger);
+            initUI();
+            initInicioAnimations();
+        });
+    </script>
 </body>
+
 </html>

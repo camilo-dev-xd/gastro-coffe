@@ -1,0 +1,21 @@
+/* ==========================================================================
+   SISTEMA DE DISEÑO & VARIABLES
+   ========================================================================== */
+:root {
+    --cafe-oscuro: #3E2723;
+    --cafe-medio: #6D4C41;
+    --naranja-calido: #F57C00;
+    --naranja-suave: #FF9800;
+    --beige-crema: #F5E9DA;
+    --blanco-calido: #FFF8F2;
+    
+    --font-titulo: 'Plus Jakarta Sans', sans-serif;
+    --font-drama: 'Cormorant Garamond', serif;
+    --font-datos: 'JetBrains Mono', monospace;
+    
+    --radio-grande: 3rem;
+    --radio-medio: 1.5rem;
+    --radio-pequeno: 0.75rem;
+    
+    --transicion-suave: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}

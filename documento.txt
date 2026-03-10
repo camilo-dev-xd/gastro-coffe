@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gastro-Coffe | Comida de verdad, hecha con amor</title>
+    
+    <!-- Fuentes Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@1,400;1,600;1,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* ==========================================================================
+           SISTEMA DE DISEÑO & VARIABLES
+           ========================================================================== */
+        :root {
+            --cafe-oscuro: #3E2723;
+            --cafe-medio: #6D4C41;
+            --naranja-calido: #F57C00;
+            --naranja-suave: #FF9800;
+            --beige-crema: #F5E9DA;
+            --blanco-calido: #FFF8F2;
+            
+            --font-titulo: 'Plus Jakarta Sans', sans-serif;
+            --font-drama: 'Cormorant Garamond', serif;
+            --font-datos: 'JetBrains Mono', monospace;
+            
+            --radio-grande: 3rem;
+            --radio-medio: 1.5rem;
+            --radio-pequeno: 0.75rem;
+            
+            --transicion-suave: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Reset & Base */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-titulo);
+            background-color: var(--beige-crema);
+            color: var(--cafe-oscuro);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        ::selection {
+            background-color: var(--naranja-calido);
+            color: var(--blanco-calido);
+        }
+
+        /* Textura Orgánica (Noise) */
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Tipografía */
+        h1, h2, h3, h4 { font-family: var(--font-titulo); font-weight: 700; letter-spacing: -0.02em; }
+        .font-drama { font-family: var(--font-drama); font-style: italic; font-weight: 600; }
+        .font-datos { font-family: var(--font-datos); }
+        
+        /* Botones y Enlaces */
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            border-radius: var(--radio-medio);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transicion-suave);
+            border: none;
+            gap: 0.75rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.1);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+            z-index: -1;
+        }
+
+        .btn:hover::before { transform: translateX(0); }
+
+        .btn-primary {
+            background-color: var(--naranja-calido);
+            color: var(--blanco-calido);
+        }
+
+        .btn-primary:hover {
+            background-color: #E65100;
+            box-shadow: 0 10px 25px rgba(245, 124, 0, 0.3);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--blanco-calido);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--blanco-calido);
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        /* Contenedores */
+        .container { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+        .view-section { display: none; opacity: 0; animation: fadeInView 0.5s forwards; }
+        .view-section.active { display: block; }
+        @keyframes fadeInView { to { opacity: 1; } }
+
+        /* ==========================================================================
+           A) NAVBAR
+           ========================================================================== */
+        .navbar {
+            position: fixed;
+            top: 1.5rem; left: 50%;
+            transform: translateX(-50%);
+            width: 90%; max-width: 1000px;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: var(--transicion-suave);
+            color: var(--blanco-calido);
+        }
+
+        .navbar.scrolled {
+            background: rgba(245, 233, 218, 0.85); /* Crema semitransparente */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: var(--cafe-oscuro);
+            box-shadow: 0 10px 30px rgba(62, 39, 35, 0.05);
+            border: 1px solid rgba(109, 76, 65, 0.1);
+        }
+
+        .nav-logo { display: flex; align-items: center; gap: 0.75rem; font-weight: 800; font-size: 1.25rem; cursor: pointer; }
+        .nav-logo svg { width: 24px; height: 24px; fill: currentColor; }
+        
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a { font-weight: 600; font-size: 0.95rem; opacity: 0.9; transition: opacity 0.3s; position: relative; cursor: pointer; }
+        .nav-links a:hover { opacity: 1; }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0; width: 0%; height: 2px;
+            background-color: var(--naranja-calido); transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .menu-toggle span { display: block; width: 25px; height: 2px; background: currentColor; transition: 0.3s; }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute; top: 120%; left: 0; width: 100%;
+                background: var(--blanco-calido); color: var(--cafe-oscuro);
+                flex-direction: column; padding: 2rem; border-radius: var(--radio-medio);
+                box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+                opacity: 0; pointer-events: none; transform: translateY(-10px);
+                transition: var(--transicion-suave);
+            }
+            .nav-links.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+            .menu-toggle { display: flex; }
+            .btn-nav { display: none; }
+        }
+
+        /* ==========================================================================
+           B) HERO
+           ========================================================================== */
+        .hero {
+            height: 100dvh;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 8vh;
+            overflow: hidden;
+            background-color: var(--cafe-oscuro);
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 120%;
+            background-image: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
+            /* Parallax base target */
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, var(--cafe-oscuro) 10%, rgba(62,39,35,0.5) 50%, rgba(0,0,0,0.2) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: var(--blanco-calido);
+            max-width: 800px;
+        }
+
+        .hero h1 { font-size: clamp(3rem, 6vw, 5rem); line-height: 1; margin-bottom: 0.5rem; }
+        .hero .drama-text { 
+            display: block; font-size: clamp(3.5rem, 7vw, 6rem); 
+            color: var(--beige-crema); margin-bottom: 1.5rem; line-height: 0.9;
+        }
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            font-weight: 400; opacity: 0.8; letter-spacing: 0.05em;
+            margin-bottom: 3rem; max-width: 600px;
+        }
+
+        .hero-btns { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+
+        /* ==========================================================================
+           C) SECCIÓN "NUESTROS NÚMEROS"
+           ========================================================================== */
+        .numeros-section {
+            padding: 6rem 0;
+            background-color: var(--beige-crema);
+            margin-top: -2rem; /* Pull up slightly over hero */
+            position: relative; z-index: 10;
+        }
+
+        .numeros-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .panel-card {
+            background-color: var(--blanco-calido);
+            border-radius: var(--radio-medio);
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(109, 76, 65, 0.05);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(109, 76, 65, 0.05);
+        }
+
+        /* Panel 1: Horario */
+        .panel-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; font-weight: 600; color: var(--cafe-medio); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .dot-pulsante { width: 8px; height: 8px; background-color: #4CAF50; border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); } 100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); } }
+        
+        .horario-data { color: var(--cafe-oscuro); font-size: 1.1rem; line-height: 1.8; }
+        .cursor-blink { display: inline-block; width: 10px; height: 1.2rem; background-color: var(--naranja-calido); vertical-align: middle; margin-left: 5px; animation: blink 1s step-end infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Panel 2: Alternante */
+        .alternating-container { height: 80px; position: relative; display: flex; align-items: center;}
+        .alt-text {
+            position: absolute; width: 100%;
+            font-family: var(--font-drama); font-size: 2.2rem; color: var(--naranja-calido);
+            opacity: 0; transform: translateY(20px); transition: var(--transicion-suave);
+        }
+        .alt-text.active { opacity: 1; transform: translateY(0); }
+
+        /* Panel 3: Mapa Interactivo */
+        .mapa-animado { width: 100%; height: 120px; position: relative; background: #f0e4d4; border-radius: var(--radio-pequeno); overflow: hidden; }
+        .map-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 1fr); height: 100%; opacity: 0.3; }
+        .map-cell { border-right: 1px solid var(--cafe-medio); border-bottom: 1px solid var(--cafe-medio); }
+        .map-target { position: absolute; top: 50%; left: 75%; transform: translate(-50%, -50%); width: 20px; height: 20px; background: var(--naranja-calido); border-radius: 50%; z-index: 2; opacity: 0;}
+        .map-cursor { position: absolute; bottom: -20px; right: -20px; z-index: 3; width: 30px; height: 30px; }
+        .map-address { margin-top: 1rem; font-size: 0.9rem; color: var(--cafe-medio); font-weight: 500; opacity: 0; transition: opacity 0.5s;}
+
+        /* ==========================================================================
+           D) SOBRE NOSOTROS (Home snippet)
+           ========================================================================== */
+        .about-section {
+            padding: 8rem 0;
+            background-color: var(--blanco-calido);
+        }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+        @media (max-width: 992px) { .about-grid { grid-template-columns: 1fr; gap: 3rem; } }
+        
+        .about-text h2 { font-size: 1rem; text-transform: uppercase; color: var(--naranja-calido); letter-spacing: 0.1em; margin-bottom: 1rem; }
+        .about-text p { font-size: 1.8rem; line-height: 1.4; color: var(--cafe-oscuro); margin-bottom: 1.5rem; }
+        .about-text p.font-drama { font-size: 2.4rem; color: var(--cafe-medio); }
+        
+        .split-word { display: inline-block; overflow: hidden; vertical-align: top; }
+        .split-word span { display: inline-block; transform: translateY(100%); opacity: 0; }
+
+        .about-img-wrapper { position: relative; border-radius: var(--radio-grande); overflow: hidden; box-shadow: 0 20px 50px rgba(62,39,35,0.15); }
+        .about-img-wrapper::after { content: ''; display: block; padding-bottom: 120%; /* Ratio */ }
+        .about-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+
+        /* ==========================================================================
+           E) NUESTRA CARTA (Home preview & Full)
+           ========================================================================== */
+        .carta-section { padding: 8rem 0; background-color: var(--beige-crema); }
+        .section-title { text-align: center; margin-bottom: 5rem; }
+        .section-title h2 { font-size: 3rem; margin-bottom: 0.5rem; }
+        .section-title p { font-size: 2rem; color: var(--cafe-medio); }
+
+        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; margin-bottom: 4rem; }
+        @media (max-width: 1024px) { .menu-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .menu-grid { grid-template-columns: 1fr; } }
+
+        .menu-card { background: var(--blanco-calido); border-radius: var(--radio-medio); overflow: hidden; transition: var(--transicion-suave); }
+        .menu-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(109,76,65,0.1); }
+        .menu-img { width: 100%; height: 200px; object-fit: cover; border-bottom: 4px solid var(--naranja-suave); }
+        .menu-content { padding: 1.5rem; }
+        .menu-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; gap: 1rem;}
+        .menu-title { font-size: 1.2rem; font-weight: 700; }
+        .menu-price { font-family: var(--font-datos); color: var(--naranja-calido); font-weight: 600; font-size: 1.1rem; white-space: nowrap;}
+        .menu-desc { color: var(--cafe-medio); font-size: 0.95rem; }
+
+        .menu-block-2 { background-color: #F0E2CE; padding: 4rem; border-radius: var(--radio-grande); margin-top: 5rem;}
+        @media (max-width: 768px) { .menu-block-2 { padding: 2rem; } }
+
+        /* ==========================================================================
+           F) MANIFIESTO
+           ========================================================================== */
+        .manifiesto {
+            padding: 12rem 0;
+            background-color: var(--cafe-oscuro);
+            color: var(--blanco-calido);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        .manifiesto-bg {
+            position: absolute; top: -20%; left: 0; width: 100%; height: 140%;
+            background-image: url('https://images.unsplash.com/photo-1442975631134-d2b4a9f5e8b8?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover; background-position: center;
+            opacity: 0.15; z-index: 0;
+        }
+        .manifiesto-content { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+        .manifiesto-q1 { font-size: 2rem; opacity: 0.6; margin-bottom: 2rem; font-weight: 400; }
+        .manifiesto-q2 { font-size: clamp(3rem, 6vw, 5rem); line-height: 1.1; color: var(--naranja-suave); }
+
+        /* ==========================================================================
+           G) EXPERIENCIA (Tarjetas Apiladas)
+           ========================================================================== */
+        .experiencia { padding: 8rem 0; background: var(--cafe-oscuro); }
+        .stacked-cards-container { position: relative; display: flex; flex-direction: column; gap: 100vh; padding-bottom: 10vh; }
+        
+        .stack-card {
+            position: sticky; top: 15vh;
+            height: 70vh; width: 100%;
+            border-radius: var(--radio-grande);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 4rem;
+            transform-origin: top center;
+            overflow: hidden;
+            box-shadow: 0 -20px 50px rgba(0,0,0,0.3);
+        }
+
+        .card-1 { background: var(--beige-crema); color: var(--cafe-oscuro); }
+        .card-2 { background: linear-gradient(135deg, var(--naranja-suave), var(--beige-crema)); color: var(--cafe-oscuro); }
+        .card-3 { background: #2D1A16; color: var(--blanco-calido); border: 1px solid rgba(255,255,255,0.05); }
+
+        .stack-icon { width: 100px; height: 100px; margin-bottom: 2rem; }
+        .stack-card h3 { font-family: var(--font-drama); font-size: 4rem; margin-bottom: 1rem; }
+        .stack-card p { font-size: 1.2rem; max-width: 500px; opacity: 0.8; }
+
+        /* ==========================================================================
+           H) CONTACTO & FOOTER
+           ========================================================================== */
+        .contacto-section { padding: 8rem 0; background: var(--blanco-calido); }
+        .contacto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+        @media (max-width: 850px) { .contacto-grid { grid-template-columns: 1fr; } }
+        
+        .contact-item { display: flex; gap: 1.5rem; margin-bottom: 2rem; align-items: flex-start; }
+        .contact-icon { width: 48px; height: 48px; background: var(--beige-crema); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: var(--naranja-calido); flex-shrink: 0;}
+        .contact-icon svg { width: 24px; height: 24px; }
+        .contact-info h4 { font-size: 1.2rem; margin-bottom: 0.25rem; }
+        .contact-info p, .contact-info pre { color: var(--cafe-medio); font-family: var(--font-datos); font-size: 0.95rem; line-height: 1.5; white-space: pre-wrap; }
+
+        .map-container { border-radius: var(--radio-grande); overflow: hidden; height: 100%; min-height: 400px; box-shadow: 0 20px 40px rgba(62,39,35,0.1); }
+        .map-container iframe { width: 100%; height: 100%; border: none; }
+
+        footer { background: var(--cafe-oscuro); color: var(--blanco-calido); border-radius: var(--radio-grande) var(--radio-grande) 0 0; padding: 6rem 2rem 2rem; margin-top: -3rem; position: relative; z-index: 20; }
+        .footer-grid { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; }
+        @media (max-width: 992px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; } }
+        @media (max-width: 500px) { .footer-grid { grid-template-columns: 1fr; } }
+
+        .footer-logo { font-size: 2rem; margin-bottom: 1rem; }
+        .footer-slogan { font-family: var(--font-drama); font-size: 1.5rem; opacity: 0.8; }
+        .footer-col h5 { font-size: 1.1rem; margin-bottom: 1.5rem; color: var(--naranja-suave); }
+        .footer-links li { margin-bottom: 0.75rem; }
+        .footer-links a { opacity: 0.7; transition: opacity 0.3s; }
+        .footer-links a:hover { opacity: 1; color: var(--naranja-calido); }
+        
+        .status-indicator { display: flex; align-items: center; gap: 0.75rem; background: rgba(255,255,255,0.05); padding: 1rem; border-radius: var(--radio-pequeno); margin-top: 1rem; font-family: var(--font-datos); font-size: 0.85rem;}
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); opacity: 0.5; font-size: 0.9rem; }
+
+        /* ==========================================================================
+           INTERNAS SIMULADAS (Nosotros, Carta Full)
+           ========================================================================== */
+        .page-header { height: 50vh; display: flex; align-items: center; justify-content: center; background: var(--cafe-oscuro); position: relative; color: var(--blanco-calido); overflow: hidden; margin-bottom: 4rem;}
+        .page-header h1 { position: relative; z-index: 2; font-size: 4rem; }
+        
+        .filtros-menu { display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap; }
+        .filtro-btn { padding: 0.5rem 1.5rem; border-radius: 2rem; border: 1px solid var(--cafe-medio); background: transparent; color: var(--cafe-oscuro); cursor: pointer; transition: 0.3s; font-weight: 600; }
+        .filtro-btn.active, .filtro-btn:hover { background: var(--cafe-oscuro); color: var(--blanco-calido); }
+
+    </style>
+</head>
+<body>
+
+    <!-- Textura Global -->
+    <div class="noise-overlay"></div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-logo" onclick="app.navigate('inicio')">
+            <!-- Icono Taza SVG -->
+            <svg viewBox="0 0 24 24"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><path d="M6 2v2"/><path d="M10 2v2"/><path d="M14 2v2"/></svg>
+            Gastro-Coffe
+        </div>
+        <div class="menu-toggle" id="mobile-menu-btn">
+            <span></span><span></span><span></span>
+        </div>
+        <ul class="nav-links" id="nav-links">
+            <li><a onclick="app.navigate('inicio')" class="nav-item active" data-target="inicio">Inicio</a></li>
+            <li><a onclick="app.navigate('nosotros')" class="nav-item" data-target="nosotros">Nosotros</a></li>
+            <li><a onclick="app.navigate('carta')" class="nav-item" data-target="carta">Carta</a></li>
+            <li><a onclick="app.navigate('contactanos')" class="nav-item" data-target="contactanos">Contáctanos</a></li>
+        </ul>
+        <button class="btn btn-primary btn-nav btn-magnet" onclick="app.navigate('carta')">Ver Carta</button>
+    </nav>
+
+    <!-- CONTENEDOR PRINCIPAL DE VISTAS (SPA Setup) -->
+    <main id="app-content">
+
+        <!-- ============================================================== -->
+        <!-- VISTA: INICIO -->
+        <!-- ============================================================== -->
+        <section id="view-inicio" class="view-section active">
+            
+            <!-- Hero -->
+            <header class="hero">
+                <div class="hero-bg" id="hero-bg"></div>
+                <div class="hero-overlay"></div>
+                <div class="container hero-content">
+                    <h1 class="hero-anim">Comida de verdad,</h1>
+                    <span class="drama-text hero-anim">hecha con amor.</span>
+                    <p class="font-datos hero-anim">Café de especialidad · Platos caseros · Un rincón tuyo en Bogotá</p>
+                    <div class="hero-btns hero-anim">
+                        <button class="btn btn-primary btn-magnet" onclick="app.navigate('carta')">Ver la Carta</button>
+                        <button class="btn btn-outline btn-magnet" onclick="app.navigate('contactanos')">Cómo llegar</button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Nuestros Números -->
+            <section class="numeros-section">
+                <div class="container numeros-grid">
+                    <!-- Panel 1 -->
+                    <div class="panel-card">
+                        <div class="panel-header">
+                            <div class="dot-pulsante"></div>
+                            Abierto hoy
+                        </div>
+                        <div class="horario-data font-datos">
+                            Lun – Vie &nbsp;&nbsp;6:00 am – 7:00 pm<br>
+                            Sáb – Dom &nbsp;&nbsp;6:00 am – 8:00 pm<span class="cursor-blink"></span>
+                        </div>
+                    </div>
+                    <!-- Panel 2 -->
+                    <div class="panel-card" style="display:flex; flex-direction:column; justify-content:center;">
+                        <div class="panel-header" style="margin-bottom:0.5rem;">Lo que ponemos en la mesa</div>
+                        <div class="alternating-container">
+                            <div class="alt-text active">Comida casera 100% natural</div>
+                            <div class="alt-text">Café de especialidad</div>
+                            <div class="alt-text">Ambiente para quedarse</div>
+                        </div>
+                    </div>
+                    <!-- Panel 3 -->
+                    <div class="panel-card">
+                        <div class="panel-header">Dónde estamos</div>
+                        <div class="mapa-animado">
+                            <div class="map-grid">
+                                <div class="map-cell"></div><div class="map-cell"></div><div class="map-cell"></div><div class="map-cell"></div>
+                                <div class="map-cell"></div><div class="map-cell"></div><div class="map-cell"></div><div class="map-cell"></div>
+                            </div>
+                            <div class="map-target" id="map-point"></div>
+                            <!-- Cursor SVG -->
+                            <svg class="map-cursor" id="map-cursor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m3 3 7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/>
+                                <path d="m13 13 6 6"/>
+                            </svg>
+                        </div>
+                        <div class="map-address" id="map-text font-datos">
+                            Km 3 Vía Suba-Cota<br>Bogotá
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sobre Nosotros (Snippet) -->
+            <section class="about-section">
+                <div class="container about-grid">
+                    <div class="about-text">
+                        <h2>El alma del lugar</h2>
+                        <p class="split-text">En Gastro Coffe, creemos que la mejor comida nace del corazón y se prepara con amor.</p>
+                        <p class="font-drama split-text">Somos un hogar donde cada plato cuenta una historia y cada visita se convierte en un recuerdo especial.</p>
+                        <button class="btn btn-outline" style="color:var(--cafe-oscuro); border-color:var(--cafe-oscuro); margin-top:1rem;" onclick="app.navigate('nosotros')">Conocer nuestra historia</button>
+                    </div>
+                    <div class="about-img-wrapper" id="about-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1000&auto=format&fit=crop" alt="Ambiente cálido de Gastro-Coffe" class="about-img" loading="lazy">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Manifiesto (Parallax) -->
+            <section class="manifiesto">
+                <div class="manifiesto-bg" id="manifiesto-bg"></div>
+                <div class="container manifiesto-content">
+                    <p class="manifiesto-q1 split-text-manifiesto">La mayoría pregunta:<br>¿Dónde hay para comer?</p>
+                    <p class="font-drama manifiesto-q2 split-text-manifiesto">Nosotros respondemos:<br>¿Qué quieres que recuerdes<br>de este momento?</p>
+                </div>
+            </section>
+
+            <!-- Experiencia (Stacked Cards) -->
+            <section class="experiencia">
+                <div class="container section-title" style="color:var(--blanco-calido); margin-bottom: 2rem;">
+                    <h2>Experiencia Gastro-Coffe</h2>
+                </div>
+                <div class="container stacked-cards-container" id="stacked-container">
+                    
+                    <div class="stack-card card-1">
+                        <svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="var(--naranja-calido)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><path d="M6 2v2" class="vapor-1"/><path d="M10 2v2" class="vapor-2"/><path d="M14 2v2" class="vapor-3"/>
+                        </svg>
+                        <h3>El espacio</h3>
+                        <p>Un rincón pensado para ti. Ya sea para trabajar, reunirte con amigos o simplemente desconectar de la ciudad con una buena taza en la mano.</p>
+                    </div>
+
+                    <div class="stack-card card-2">
+                        <svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="var(--cafe-oscuro)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/>
+                        </svg>
+                        <h3>El sabor</h3>
+                        <p>Recetas que vienen de la familia, no de un manual. Usamos ingredientes naturales, sin artificios, porque la comida de verdad no necesita filtros.</p>
+                    </div>
+
+                    <div class="stack-card card-3">
+                        <svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="var(--naranja-calido)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        <h3>La comunidad</h3>
+                        <p>Tu vecindario tiene sabor. No somos una cadena fría; somos parte de Suba. Conocemos tu nombre y cómo te gusta el café.</p>
+                    </div>
+
+                </div>
+            </section>
+        </section>
+
+        <!-- ============================================================== -->
+        <!-- VISTA: NOSOTROS -->
+        <!-- ============================================================== -->
+        <section id="view-nosotros" class="view-section">
+            <header class="page-header">
+                <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=2000&auto=format&fit=crop'); opacity:0.4;"></div>
+                <h1>NOSOTROS</h1>
+            </header>
+            <div class="container about-grid" style="padding-bottom: 8rem;">
+                <div class="about-text">
+                    <p class="font-drama" style="font-size: 2.5rem; color:var(--naranja-calido); line-height:1.2; margin-bottom: 2rem;">"Somos mucho más que un restaurante, somos un lugar para conectar, compartir y disfrutar."</p>
+                    <p>En Gastro Coffe, creemos que la mejor comida nace del corazón y se prepara con amor. Somos un hogar donde cada plato cuenta una historia y cada visita se convierte en un recuerdo especial.</p>
+                    <p>Ubicados en el corazón de Bogotá, en la zona de Suba, Gastro Coffe nació del sueño de crear un espacio que combinara la calidez del hogar con la excelencia culinaria. Nuestra filosofía es simple: Servir comida casera 100% natural en un ambiente que invite a quedarse, a conversar y a disfrutar.</p>
+                </div>
+                <div class="about-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=800&auto=format&fit=crop" alt="Comida real" class="about-img">
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================== -->
+        <!-- VISTA: CARTA -->
+        <!-- ============================================================== -->
+        <section id="view-carta" class="view-section" style="background:var(--beige-crema); padding-bottom:8rem;">
+            <header class="page-header">
+                <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=2000&auto=format&fit=crop'); opacity:0.3;"></div>
+                <h1>NUESTRA CARTA</h1>
+            </header>
+            
+            <div class="container">
+                <div class="filtros-menu">
+                    <button class="filtro-btn active">Todos</button>
+                    <button class="filtro-btn">Desayunos</button>
+                    <button class="filtro-btn">Almuerzos</button>
+                    <button class="filtro-btn">Café & Bebidas</button>
+                </div>
+
+                <div class="section-title">
+                    <h2>Especialidades Gastronómicas</h2>
+                    <p class="font-drama">Cocina casera con alma</p>
+                </div>
+
+                <div class="menu-grid">
+                    <!-- Plato 1 -->
+                    <div class="menu-card">
+                        <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=600&auto=format&fit=crop" alt="Bandeja" class="menu-img" loading="lazy">
+                        <div class="menu-content">
+                            <div class="menu-header">
+                                <span class="menu-title">Bandeja Corriente</span>
+                                <span class="menu-price">$10.000</span>
+                            </div>
+                            <p class="menu-desc">Papas saladas, arroz, frijoles y el toque de la casa.</p>
+                        </div>
+                    </div>
+                    <!-- Plato 2 -->
+                    <div class="menu-card">
+                        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=600&auto=format&fit=crop" alt="Sopa" class="menu-img" loading="lazy">
+                        <div class="menu-content">
+                            <div class="menu-header">
+                                <span class="menu-title">Sopa del Día</span>
+                                <span class="menu-price">$7.500</span>
+                            </div>
+                            <p class="menu-desc">Preparada cada mañana con ingredientes frescos del mercado.</p>
+                        </div>
+                    </div>
+                    <!-- Plato 3 -->
+                    <div class="menu-card">
+                        <img src="https://images.unsplash.com/photo-1529042410759-befb1204b468?q=80&w=600&auto=format&fit=crop" alt="Alitas" class="menu-img" loading="lazy">
+                        <div class="menu-content">
+                            <div class="menu-header">
+                                <span class="menu-title">Alitas BBQ</span>
+                                <span class="menu-price">$13.000</span>
+                            </div>
+                            <p class="menu-desc">Crujientes, sabrosas y bañadas en nuestra salsa secreta.</p>
+                        </div>
+                    </div>
+                    <!-- Text Only items -->
+                    <div class="menu-card"><div class="menu-content">
+                        <div class="menu-header"><span class="menu-title">Caldo de Costilla</span><span class="menu-price">$8.500</span></div>
+                        <p class="menu-desc">Tradición bogotana para levantar el ánimo.</p>
+                    </div></div>
+                    <div class="menu-card"><div class="menu-content">
+                        <div class="menu-header"><span class="menu-title">Huevos con Arroz</span><span class="menu-price">$5.500</span></div>
+                        <p class="menu-desc">Desayuno clásico, sencillo y reconfortante.</p>
+                    </div></div>
+                    <div class="menu-card"><div class="menu-content">
+                        <div class="menu-header"><span class="menu-title">Carne Asada</span><span class="menu-price">$14.000</span></div>
+                        <p class="menu-desc">Corte magro, asado al punto con acompañamientos.</p>
+                    </div></div>
+                </div>
+
+                <div class="menu-block-2">
+                    <div class="section-title">
+                        <h2>Cafetería & Bebidas</h2>
+                        <p class="font-drama">Para acompañar o conversar</p>
+                    </div>
+                    <div class="menu-grid">
+                        <div class="menu-card">
+                            <img src="https://images.unsplash.com/photo-1598514982205-f36b96d1e8d4?q=80&w=600&auto=format&fit=crop" alt="Pollo asado" class="menu-img" loading="lazy">
+                            <div class="menu-content">
+                                <div class="menu-header"><span class="menu-title">Café Tinto</span><span class="menu-price">$2.500</span></div>
+                                <p class="menu-desc">El clásico colombiano, recién filtrado.</p>
+                            </div>
+                        </div>
+                        <div class="menu-card">
+                            <img src="https://images.unsplash.com/photo-1598514982205-f36b96d1e8d4?q=80&w=600&auto=format&fit=crop" alt="Pollo asado" class="menu-img" loading="lazy">
+                            <div class="menu-content">
+                                <div class="menu-header"><span class="menu-title">Café con Leche / Latte</span><span class="menu-price">$4.500</span></div>
+                                <p class="menu-desc">Cremoso, reconfortante y con arte latte.</p>
+                            </div>
+                        </div>
+                        <div class="menu-card">
+                            <img src="https://images.unsplash.com/photo-1598514982205-f36b96d1e8d4?q=80&w=600&auto=format&fit=crop" alt="Pollo asado" class="menu-img" loading="lazy">
+                            <div class="menu-content">
+                                <div class="menu-header"><span class="menu-title">Arepas de Queso</span><span class="menu-price">$2.500</span></div>
+                                <p class="menu-desc">Recién hechas, doradas por fuera, queso derretido adentro.</p>
+                            </div>
+                        </div>
+                        <div class="menu-card">
+                            <img src="https://images.unsplash.com/photo-1598514982205-f36b96d1e8d4?q=80&w=600&auto=format&fit=crop" alt="Pollo asado" class="menu-img" loading="lazy">
+                            <div class="menu-content">
+                                <div class="menu-header"><span class="menu-title">Empanadas & Buñuelos</span><span class="menu-price">$2.500 - $3.000</span></div>
+                                <p class="menu-desc">Doradas, crujientes, esponjosos y calientes.</p>
+                            </div>
+                        </div>
+                        <div class="menu-card">
+                            <img src="https://images.unsplash.com/photo-1598514982205-f36b96d1e8d4?q=80&w=600&auto=format&fit=crop" alt="Pollo asado" class="menu-img" loading="lazy">
+                            <div class="menu-content">
+                                <div class="menu-header"><span class="menu-title">Cerveza Nacional</span><span class="menu-price">$7.000</span></div>
+                                <p class="menu-desc">Bien fría para terminar la tarde.</p>
+                            </div>
+                        </div>
+                        <div class="menu-card">
+                            <img src="https://images.unsplash.com/photo-1598514982205-f36b96d1e8d4?q=80&w=600&auto=format&fit=crop" alt="Pollo asado" class="menu-img" loading="lazy">
+                            <div class="menu-content">
+                                <div class="menu-header"><span class="menu-title">Galguerías</span><span class="menu-price">$1.000 - $5.000</span></div>
+                                <p class="menu-desc">Galletas, dulces, ponques, gomitas para el antojo.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ============================================================== -->
+        <!-- VISTA: CONTACTO -->
+        <!-- ============================================================== -->
+        <section id="view-contactanos" class="view-section">
+            <header class="page-header" style="height: 40vh;">
+                <h1>CONTÁCTANOS</h1>
+            </header>
+            <section class="contacto-section">
+                <div class="container contacto-grid">
+                    <!-- Datos -->
+                    <div class="contact-details">
+                        <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">El puente real hacia el sabor</h2>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                            </div>
+                            <div class="contact-info">
+                                <h4>E-mail</h4>
+                                <p>gastro-coffe@gmail.com</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                            </div>
+                            <div class="contact-info">
+                                <h4>Teléfono</h4>
+                                <p>+57 312 3530829</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            </div>
+                            <div class="contact-info">
+                                <h4>Dirección</h4>
+                                <p>Km 3 Vía Suba-Cota<br>Cl. 171 No. 93-55<br>Bogotá, Colombia</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+                            </div>
+                            <div class="contact-info">
+                                <h4>Horarios</h4>
+                                <pre>Lunes a Viernes   6:00 am – 7:00 pm
+Sábado y Domingo  6:00 am – 8:00 pm</pre>
+                            </div>
+                        </div>
+
+                        <a href="https://wa.me/573123530829" target="_blank" class="btn btn-primary btn-magnet" style="margin-top: 2rem;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                            Escríbenos ahora
+                        </a>
+                    </div>
+
+                    <!-- Mapa -->
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15904.7075727926!2d-74.077!3d4.755!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwNDUnMTguMCJOIDc0wrAwNCczNy4yIlc!5e0!3m2!1ses!2sco!4v1610000000000!5m2!1ses!2sco" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+    </main>
+
+    <!-- FOOTER GLOBALES -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col" style="padding-right: 2rem;">
+                <div class="nav-logo footer-logo">
+                    <svg viewBox="0 0 24 24"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><path d="M6 2v2"/><path d="M10 2v2"/><path d="M14 2v2"/></svg>
+                    Gastro-Coffe
+                </div>
+                <p class="footer-slogan">Comida de verdad, hecha con amor.</p>
+                <div class="status-indicator">
+                    <div class="dot-pulsante"></div>
+                    Abierto ahora · Sistema activo · Bogotá, Colombia
+                </div>
+            </div>
+            <div class="footer-col">
+                <h5>Navegación</h5>
+                <ul class="footer-links">
+                    <li><a onclick="app.navigate('inicio')">Inicio</a></li>
+                    <li><a onclick="app.navigate('nosotros')">Nosotros</a></li>
+                    <li><a onclick="app.navigate('carta')">La Carta</a></li>
+                    <li><a onclick="app.navigate('contactanos')">Ubicación</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Redes</h5>
+                <ul class="footer-links">
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">TikTok</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Contacto Rápido</h5>
+                <ul class="footer-links font-datos" style="font-size: 0.9rem;">
+                    <li>gastro-coffe@gmail.com</li>
+                    <li>+57 312 3530829</li>
+                    <li>Km 3 Vía Suba-Cota</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 Gastro-Coffe · Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <!-- LÓGICA JAVASCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // ==========================================================================
+            // CORE APP & ROUTER (Simulación SPA)
+            // ==========================================================================
+            window.app = {
+                navigate: function(viewId) {
+                    // Actualizar UI del Navbar
+                    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+                    const activeLink = document.querySelector(`.nav-item[data-target="${viewId}"]`);
+                    if(activeLink) activeLink.classList.add('active');
+
+                    // Cambiar vista
+                    document.querySelectorAll('.view-section').forEach(v => {
+                        v.classList.remove('active');
+                    });
+                    
+                    const targetView = document.getElementById(`view-${viewId}`);
+                    targetView.classList.add('active');
+
+                    // Resetear scroll y refrescar ScrollTrigger
+                    window.scrollTo({ top: 0, behavior: 'instant' });
+                    
+                    // Cerrar menu móvil si está abierto
+                    document.getElementById('nav-links').classList.remove('open');
+
+                    // Re-inicializar animaciones específicas de la vista
+                    setTimeout(() => {
+                        ScrollTrigger.refresh();
+                        if(viewId === 'inicio') initInicioAnimations();
+                    }, 50);
+                }
+            };
+
+            // ==========================================================================
+            // UI & INTERACCIONES GLOBALES
+            // ==========================================================================
+            
+            // Navbar Scroll Effect
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) navbar.classList.add('scrolled');
+                else navbar.classList.remove('scrolled');
+            });
+
+            // Menú Móvil
+            document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+                document.getElementById('nav-links').classList.toggle('open');
+            });
+
+            // Botones Magnéticos
+            document.querySelectorAll('.btn-magnet').forEach(btn => {
+                btn.addEventListener('mousemove', e => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    gsap.to(btn, {x: x * 0.2, y: y * 0.2, duration: 0.3, ease: "power2.out"});
+                });
+                btn.addEventListener('mouseleave', () => {
+                    gsap.to(btn, {x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)"});
+                });
+            });
+
+            // SplitText Utility (Vanilla JS sin plugins de pago)
+            function splitTextWords(selector) {
+                document.querySelectorAll(selector).forEach(el => {
+                    const words = el.innerText.split(' ');
+                    el.innerHTML = '';
+                    words.forEach(word => {
+                        const span = document.createElement('span');
+                        span.className = 'split-word';
+                        span.innerHTML = `<span>${word}</span>&nbsp;`;
+                        el.appendChild(span);
+                    });
+                });
+            }
+
+            // ==========================================================================
+            // ANIMACIONES VISTA INICIO (GSAP)
+            // ==========================================================================
+            let inicioAnimCtx;
+
+            function initInicioAnimations() {
+                // Limpiar contexto anterior si existe para evitar duplicados al navegar
+                if(inicioAnimCtx) inicioAnimCtx.revert();
+                inicioAnimCtx = gsap.context(() => {
+
+                    // 1. Hero Entrada
+                    gsap.fromTo(".hero-anim", 
+                        { y: 50, opacity: 0 },
+                        { y: 0, opacity: 1, duration: 1, stagger: 0.2, ease: "power3.out", delay: 0.2 }
+                    );
+
+                    // Hero Parallax
+                    gsap.to("#hero-bg", {
+                        yPercent: 30,
+                        ease: "none",
+                        scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
+                    });
+
+                    // 2. Tarjetas Alternantes (Valores)
+                    const altTexts = document.querySelectorAll('.alt-text');
+                    let currentAlt = 0;
+                    setInterval(() => {
+                        altTexts[currentAlt].classList.remove('active');
+                        currentAlt = (currentAlt + 1) % altTexts.length;
+                        altTexts[currentAlt].classList.add('active');
+                    }, 3000);
+
+                    // 3. Animación Mapa (Nuestros Números)
+                    const tlMap = gsap.timeline({ repeat: -1, repeatDelay: 1 });
+                    tlMap.to("#map-cursor", { duration: 1, x: -70, y: -40, ease: "power2.inOut" })
+                         .to("#map-cursor", { scale: 0.8, duration: 0.1, yoyo: true, repeat: 1 })
+                         .to("#map-point", { opacity: 1, duration: 0.2 }, "-=0.1")
+                         .to(".map-address", { opacity: 1, duration: 0.3 })
+                         .to("#map-cursor", { duration: 1, x: 0, y: 0, ease: "power2.inOut", delay: 2 })
+                         .to("#map-point", { opacity: 0, duration: 0.2 }, "-=0.5")
+                         .to(".map-address", { opacity: 0, duration: 0.2 }, "-=0.5");
+
+                    // 4. Split Text (Sobre Nosotros)
+                    splitTextWords('.split-text');
+                    gsap.to('.split-text .split-word span', {
+                        y: "0%", opacity: 1, duration: 0.8, stagger: 0.02, ease: "power3.out",
+                        scrollTrigger: { trigger: ".about-section", start: "top 70%" }
+                    });
+
+                    // 5. Imagen About Parallax local
+                    gsap.fromTo(".about-img", 
+                        { scale: 1.1, y: -20 }, { scale: 1, y: 20, ease: "none",
+                        scrollTrigger: { trigger: "#about-img-wrap", start: "top bottom", end: "bottom top", scrub: true }
+                    });
+
+                    // 6. Manifiesto (Split Text y Parallax)
+                    gsap.to("#manifiesto-bg", {
+                        yPercent: 20, ease: "none",
+                        scrollTrigger: { trigger: ".manifiesto", start: "top bottom", end: "bottom top", scrub: true }
+                    });
+                    
+                    splitTextWords('.split-text-manifiesto');
+                    gsap.to('.split-text-manifiesto .split-word span', {
+                        y: "0%", opacity: 1, duration: 1, stagger: 0.05, ease: "power4.out",
+                        scrollTrigger: { trigger: ".manifiesto", start: "top 60%" }
+                    });
+
+                    // 7. Tarjetas Apiladas (Experiencia)
+                    const cards = gsap.utils.toArray('.stack-card');
+                    cards.forEach((card, i) => {
+                        if (i === cards.length - 1) return; // La ultima no se escala
+                        
+                        gsap.to(card, {
+                            scale: 0.9,
+                            opacity: 0.5,
+                            filter: "blur(10px)",
+                            ease: "none",
+                            scrollTrigger: {
+                                trigger: cards[i + 1],
+                                start: "top 80%",
+                                end: "top 20%",
+                                scrub: true,
+                            }
+                        });
+                    });
+
+                    // Animaciones SVG Vapor
+                    gsap.to(".vapor-1", { y: -5, opacity: 0, duration: 1.5, repeat: -1, yoyo: true, ease: "sine.inOut" });
+                    gsap.to(".vapor-2", { y: -8, opacity: 0, duration: 1.8, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.3 });
+                    gsap.to(".vapor-3", { y: -6, opacity: 0, duration: 1.6, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.6 });
+
+                }, document.getElementById('view-inicio')); // Scope al view-inicio
+            }
+
+            // Iniciar animaciones de la página por defecto (Inicio)
+            initInicioAnimations();
+        });
+    </script>
+</body>
+</html>
