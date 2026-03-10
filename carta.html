@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Carta completa de Gastro-Coffe: comida casera, café de especialidad, snacks y bebidas">
+  <meta name="theme-color" content="#3E2723">
+  <title>Carta | Gastro-Coffe</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <style>
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .filter-btn {
+      padding: 0.75rem 1.5rem;
+      border: 2px solid var(--cafe-medio);
+      background-color: transparent;
+      color: var(--cafe-oscuro);
+      border-radius: var(--radio-medio);
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-family: var(--font-titulo);
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background-color: var(--naranja-calido);
+      border-color: var(--naranja-calido);
+      color: white;
+    }
+
+    .menu-item {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .menu-item.active {
+      display: block;
+      opacity: 1;
+    }
+
+    .menu-item[data-category] {
+      display: none;
+    }
+
+    .menu-item[data-category].show {
+      display: block;
+      animation: fadeUp 0.5s ease;
+    }
+  </style>
+</head>
+<body>
+  <!-- ═════════════════════════════════════════
+       NAVBAR FLOTANTE
+       ═════════════════════════════════════════ -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+      </svg>
+      Gastro-Coffe
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="nosotros.html">Nosotros</a></li>
+      <li><a href="carta.html" class="active">Carta</a></li>
+      <li><a href="contactanos.html">Contáctanos</a></li>
+    </ul>
+
+    <button class="btn btn-primary nav-cta" onclick="window.location.href='contactanos.html'">Visítanos</button>
+
+    <button class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- ═════════════════════════════════════════
+       HERO - CARTA
+       ═════════════════════════════════════════ -->
+  <section class="hero" style="align-items: center; justify-content: center;">
+    <div class="hero-content" style="text-align: center; margin: 0;">
+      <h1 style="font-size: 5rem;">CARTA</h1>
+      <p class="hero-description" style="font-size: 1.2rem; margin-top: 1.5rem;">
+        Descubre el sabor auténtico de Gastro-Coffe
+      </p>
+    </div>
+  </section>
+
+  <!-- ═════════════════════════════════════════
+       FILTROS
+       ═════════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <h2 style="text-align: center; color: var(--cafe-oscuro); margin-bottom: 2rem;">Selecciona una Categoría</h2>
+      <div class="filters">
+        <button class="filter-btn active" onclick="filterMenuItems('todos')">Todos</button>
+        <button class="filter-btn" onclick="filterMenuItems('desayuno')">Desayuno</button>
+        <button class="filter-btn" onclick="filterMenuItems('almuerzo')">Almuerzo</button>
+        <button class="filter-btn" onclick="filterMenuItems('snacks')">Snacks</button>
+        <button class="filter-btn" onclick="filterMenuItems('bebidas')">Bebidas</button>
+        <button class="filter-btn" onclick="filterMenuItems('cafe')">Café</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════════════════════════════════════
+       MENÚ COMPLETO
+       ═════════════════════════════════════════ -->
+  <section class="menu-section" style="background-color: var(--blanco-calido);">
+    <div class="container">
+      <!-- DESAYUNOS -->
+      <div class="menu-block">
+        <div class="menu-block-title">
+          <h2>Desayunos</h2>
+          <p class="italic-drama">Arranca tu día con energía</p>
+        </div>
+
+        <div class="menu-grid">
+          <div class="menu-card menu-item" data-category="desayuno almuerzo">
+            <div class="menu-card-image">
+              <img src="https://images.unsplash.com/photo-1585687572381-37766e0241c0?w=400&h=300&fit=crop" alt="Huevos con Arroz" loading="lazy">
+            </div>
+            <div class="menu-card-content">
+              <h3>Huevos con Arroz</h3>
+              <p class="menu-card-description">Desayuno clásico presentado con amor</p>
+              <p class="menu-card-price">$5.500</p>
+            </div>
+          </div>
+
+          <div class="menu-card menu-item" data-category="desayuno almuerzo">
+            <div class="menu-card-image">
+              <img src="https://images.unsplash.com/photo-1582797402907-3cf89b8daea5?w=400&h=300&fit=crop" alt="Arepas de Queso" loading="lazy">
+            </div>
+            <div class="menu-card-content">
+              <h3>Arepas de Queso</h3>
+              <p class="menu-card-description">Recién hechas, doradas con queso fresco</p>
+              <p class="menu-card-price">$2.500</p>
+            </div>
+          </div>
+
+          <div class="menu-card menu-item" data-category="desayuno snacks">
+            <div class="menu-card-image">
+              <img src="https://images.unsplash.com/photo-1585518419759-52e2d9fcf9e3?w=400&h=300&fit=crop" alt="Buñuelos" loading="lazy">
+            </div>
+            <div class="menu-card-content">
+              <h3>Buñuelos</h3>
+              <p class="menu-card-description">Esponjosos y calientes</p>
+              <p class="menu-card-price">$3.000</p>
+            </div>
+          </div>
+
+          <div class="menu-card menu-item" data-category="desayuno snacks">
+            <div class="menu-card-image">
+              <img src="https://images.unsplash.com/photo-1584622181564-1d5f21f5f5d8?w=400&h=300&fit=crop" alt="Empanadas" loading="lazy">
+            </div>
+            <div class="menu-card-content">
+              <h3>Empanadas</h3>
+              <p class="menu-card-description">Doradas y crujientes, rellenas</p>
+              <p class="menu-card-price">$2.500</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ALMUERZOS -->
+      <div class="menu-block" style="margin-top: 4rem;">
+        <div class="menu-block-title">
+          <h2>Almuerzos</h2>
+          <p class="italic-drama">Platos principales con sabor de hogar</p>
+        </div>
+
+        <div class="menu-grid">
+          <div class="menu-card menu-item" data-category="almuerzo">
+            <div class="menu-card-image">
+              <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop" alt="Bandeja Corriente" loading="lazy">
+            </div>
+            <div class="menu-card-content">
+              <h3>Bandeja Corriente</h3>
+              <p class="menu-card-description">Papas, arroz, frijoles, carne — completa</p>
+              <p class="menu-card-price">$10.000</p>
+            </div>
+          </div>
+
+          <div class="menu-card menu-item" data-category="almuerzo">
+            <div class="menu-card-image">
+              <img src="https://images.unsplash.com/photo-1547069981-4d71bcdd2065?w=400&h=300&fit=crop" alt="Sopa del Día" loading="lazy">
+            </div>
+            <div class="menu-card-content">
+              <h3>Sopa del Día</h3>
+              <p class="menu-card-description">Preparada cada mañana con ingredientes frescos</p>
+              <p class="menu-card-price">$7.500</p>
+            </div>
+          </div>
+
+          <div class="menu-card menu-item" data-category="almuerzo">
+            <div class="menu-card-image">
+              <img src="https://images.unsplash.com/photo-1547069981-4d71bcdd2065?w=400&h=300&fit=crop" alt="Caldo de Costilla" loading="lazy">
+            </div>
+            <div class="menu-card-content">
+              <h3>Caldo de Costilla</h3>
+              <p class="menu-card-description">Tradición bogotana, cálido y reconfortante</p>
+              <p class="menu-card-price">$8.500</p>
+            </div>
+          </div>
+
+          <div class="menu-card menu-item" data-category="almuerzo">
+            <div class="menu-card-image">
+              <img src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=400&h=300&fit=crop" alt="Carne Asada" loading="lazy">
+            </div>
+            <div class="menu-card-content">
+              <h3>Carne Asada</h3>
+              <p class="menu-card-description">Tierna y perfectamente sazonada</p>
+              <p class="menu-card-price">$14.000</p>
+            </div>
+          </div>
+
+          <div class="menu-card menu-item" data-category="almuerzo">
+            <div class="menu-card-image">
+              <img src="https://images.unsplash.com/photo-1598808503676-4ac38b5fcb10?w=400&h=300&fit=crop" alt="Alitas BBQ" loading="lazy">
+            </div>
+            <div class="menu-card-content">
+              <h3>Alitas BBQ</h3>
+              <p class="menu-card-description">Crujientes, tiernas, sabor al fuego</p>
+              <p class="menu-card-price">$13.000</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SNACKS -->
+      <div class="menu-block" style="margin-top: 4rem; background-color: var(--beige-crema); padding: 4rem 0; margin-left: -2rem; margin-right: -2rem; padding-left: 2rem; padding-right: 2rem;">
+        <div class="menu-block-title">
+          <h2>Snacks</h2>
+          <p class="italic-drama">Pequeños detalles, grandes momentos</p>
+        </div>
+
+        <div class="menu-grid container">
+          <div class="menu-card menu-item" data-category="snacks">
+            <div class="menu-card-image">
+              <img src="https://images.unsplash.com/photo-1584622181564-1d5f21f5f5d8?w=400&h=300&fit=crop" alt="Empanadas" loading="lazy">
+            </div>
+            <div class="menu-card-content">
+              <h3>Empanadas</h3>
+              <p class="menu-card-description">Doradas y crujientes</p>
+              <p class="menu-card-price">$2.500</p>
+            </div>
+          </div>
+
+          <div class="menu-card menu-item" data-category="snacks">
+            <div class="menu-card-image">
+              <img src="https://images.unsplash.com/photo-1585518419759-52e2d9fcf9e3?w=400&h=300&fit=crop" alt="Buñuelos" loading="lazy">
+            </div>
+            <div class="menu-card-content">
+              <h3>Buñuelos</h3>
+              <p class="menu-card-description">Esponjosos y calientes</p>
+              <p class="menu-card-price">$3.000</p>
+            </div>
+          </div>
+
+          <div class="menu-card menu-item" data-category="snacks">
+            <div class="menu-card-image">
+              <img src="https://images.unsplash.com/photo-1582797402907-3cf89b8daea5?w=400&h=300&fit=crop" alt="Arepas de Queso" loading="lazy">
+            </div>
+            <div class="menu-card-content">
+              <h3>Arepas de Queso</h3>
+              <p class="menu-card-description">Recién hechas con queso fresco</p>
+              <p class="menu-card-price">$2.500</p>
+            </div>
+          </div>
+
+          <div class="menu-card menu-item" data-category="snacks">
+            <div class="menu-card-image">
+              <img src="https://images.unsplash.com/photo-1535920527030-ddc5013c6008?w=400&h=300&fit=crop" alt="Galguería" loading="lazy">
+            </div>
+            <div class="menu-card-content">
+              <h3>Galguería</h3>
+              <p class="menu-card-description">Galletas, dulces, ponques, gomitas</p>
+              <p class="menu-card-price">$1.000–$5.000</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BEBIDAS -->
+      <div class="menu-block" style="margin-top: 4rem;">
+        <div class="menu-block-title">
+          <h2>Bebidas</h2>
+          <p class="italic-drama">Para acompañar cada momento</p>
+        </div>
+
+        <div class="menu-grid">
+          <div class="menu-card menu-item" data-category="bebidas">
+            <div class="menu-card-image">
+              <img src="https://images.unsplash.com/photo-1538095748098-44f88d17c0d3?w=400&h=300&fit=crop" alt="Gaseosas" loading="lazy">
+            </div>
+            <div class="menu-card-content">
+              <h3>Gaseosas</h3>
+              <p class="menu-card-description">Variedad disponible, bien frías</p>
+              <p class="menu-card-price">$3.000</p>
+            </div>
+          </div>
+
+          <div class="menu-card menu-item" data-category="bebidas">
+            <div class="menu-card-image">
+              <img src="https://images.unsplash.com/photo-1585515320310-c2d43f6b0322?w=400&h=300&fit=crop" alt="Agua Embotellada" loading="lazy">
+            </div>
+            <div class="menu-card-content">
+              <h3>Agua Embotellada</h3>
+              <p class="menu-card-description">Fría, pura, refrescante</p>
+              <p class="menu-card-price">$2.500</p>
+            </div>
+          </div>
+
+          <div class="menu-card menu-item" data-category="bebidas">
+            <div class="menu-card-image">
+              <img src="https://images.unsplash.com/photo-1608270861620-7adf0c1b8b6a?w=400&h=300&fit=crop" alt="Cerveza Nacional" loading="lazy">
+            </div>
+            <div class="menu-card-content">
+              <h3>Cerveza Nacional</h3>
+              <p class="menu-card-description">Bien fría, perfecta compañía</p>
+              <p class="menu-card-price">$7.000</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAFÉ -->
+      <div class="menu-block" style="margin-top: 4rem; background-color: var(--beige-crema); padding: 4rem 0; margin-left: -2rem; margin-right: -2rem; padding-left: 2rem; padding-right: 2rem;">
+        <div class="menu-block-title">
+          <h2>Café de Especialidad</h2>
+          <p class="italic-drama">El corazón de Gastro-Coffe</p>
+        </div>
+
+        <div class="menu-grid container">
+          <div class="menu-card menu-item" data-category="cafe">
+            <div class="menu-card-image">
+              <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=300&fit=crop" alt="Café Tinto" loading="lazy">
+            </div>
+            <div class="menu-card-content">
+              <h3>Café Tinto</h3>
+              <p class="menu-card-description">El clásico colombiano, sabor profundo</p>
+              <p class="menu-card-price">$2.500</p>
+            </div>
+          </div>
+
+          <div class="menu-card menu-item" data-category="cafe">
+            <div class="menu-card-image">
+              <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&h=300&fit=crop" alt="Café con Leche" loading="lazy">
+            </div>
+            <div class="menu-card-content">
+              <h3>Café con Leche</h3>
+              <p class="menu-card-description">Cremoso, reconfortante, ideal para empezar</p>
+              <p class="menu-card-price">$4.500</p>
+            </div>
+          </div>
+
+          <div class="menu-card menu-item" data-category="cafe">
+            <div class="menu-card-image">
+              <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&h=300&fit=crop" alt="Latte" loading="lazy">
+            </div>
+            <div class="menu-card-content">
+              <h3>Espresso / Latte</h3>
+              <p class="menu-card-description">Extraído con precisión, cremoso y suave</p>
+              <p class="menu-card-price">$5.000–$6.000</p>
+            </div>
+          </div>
+
+          <div class="menu-card menu-item" data-category="cafe">
+            <div class="menu-card-image">
+              <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&h=300&fit=crop" alt="Capuchino" loading="lazy">
+            </div>
+            <div class="menu-card-content">
+              <h3>Capuchino</h3>
+              <p class="menu-card-description">Generoso en espuma, auténtico italiano</p>
+              <p class="menu-card-price">$5.500</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════════════════════════════════════
+       LLAMADA A ACCIÓN
+       ═════════════════════════════════════════ -->
+  <section class="section" style="text-align: center; background-color: var(--cafe-oscuro); color: white; padding: 6rem 2rem;">
+    <h2 style="color: white; margin-bottom: 1.5rem;">¿Listo para probar?</h2>
+    <p style="font-size: 1.1rem; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+      Visitanos en la zona de Suba, Bogotá. Recibiremos con el aroma del café recién hecho y el calor de un verdadero hogar.
+    </p>
+    <a href="contactanos.html" class="btn btn-primary">Visítanos Ahora</a>
+  </section>
+
+  <!-- ═════════════════════════════════════════
+       FOOTER
+       ═════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <!-- Bloque 1: Identidad -->
+        <div class="footer-block">
+          <div class="footer-logo">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+            </svg>
+            Gastro-Coffe
+          </div>
+          <p class="footer-tagline">Comida de verdad, hecha con amor.</p>
+          <div class="footer-socials">
+            <a href="https://facebook.com" class="social-icon" title="Facebook">
+              <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </a>
+            <a href="https://tiktok.com" class="social-icon" title="TikTok">
+              <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.498 3h-3.496v12c0 1.657-1.343 3-3 3-1.657 0-3-1.343-3-3s1.343-3 3-3c.292 0 .575.044.847.127V5.128A6.994 6.994 0 0 0 9.002 3c-3.859 0-7 3.14-7 7v10h3.5v-10c0-1.657 1.343-3 3-3 1.657 0 3 1.343 3 3v10h3.5s0-8.926 0-10c0-1.657 1.343-3 3-3z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Bloque 2: Navegación -->
+        <div class="footer-block">
+          <h3>Navegación</h3>
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="nosotros.html">Nosotros</a></li>
+            <li><a href="carta.html">Carta</a></li>
+            <li><a href="contactanos.html">Contáctanos</a></li>
+          </ul>
+        </div>
+
+        <!-- Bloque 3: Información -->
+        <div class="footer-block">
+          <h3>Información</h3>
+          <ul>
+            <li><a href="tel:+573123530829">+57 312 3530829</a></li>
+            <li><a href="mailto:gastro-coffe@gmail.com">gastro-coffe@gmail.com</a></li>
+            <li><a href="https://wa.me/573123530829">WhatsApp</a></li>
+          </ul>
+        </div>
+
+        <!-- Bloque 4: Estado -->
+        <div class="footer-block">
+          <div class="footer-status">
+            <div class="footer-status-indicator">
+              <span class="status-dot"></span>
+              <span>Abierto ahora</span>
+            </div>
+            <p style="font-size: 0.85rem; opacity: 0.7;">Sistema activo · Bogotá, Colombia</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Línea inferior -->
+      <div class="footer-bottom">
+        <p>© 2025 Gastro-Coffe · Todos los derechos reservados · Hecho con ☕ y ❤️ en Bogotá</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/main.js"></script>
+
+  <script>
+    // Filtro de menú
+    function filterMenuItems(category) {
+      const items = document.querySelectorAll('.menu-item');
+      const buttons = document.querySelectorAll('.filter-btn');
+
+      // Actualizar botones activos
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // Mostrar/ocultar items
+      items.forEach(item => {
+        const itemCategories = item.dataset.category.split(' ');
+
+        if (category === 'todos' || itemCategories.includes(category)) {
+          item.classList.add('show');
+          item.style.display = 'block';
+          gsap.to(item, {
+            opacity: 1,
+            duration: 0.3
+          });
+        } else {
+          gsap.to(item, {
+            opacity: 0,
+            duration: 0.3,
+            onComplete: () => {
+              item.style.display = 'none';
+              item.classList.remove('show');
+            }
+          });
+        }
+      });
+    }
+
+    // Mostrar todos los items al iniciar
+    document.addEventListener('DOMContentLoaded', () => {
+      const items = document.querySelectorAll('.menu-item');
+      items.forEach(item => {
+        item.classList.add('show');
+        item.style.display = 'block';
+      });
+    });
+  </script>
+</body>
+</html>
