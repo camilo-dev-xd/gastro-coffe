@@ -79,29 +79,31 @@
     <!-- CONTENIDO PRINCIPAL -->
     <main id="app-content">
         <!-- VISTA: NOSOTROS -->
-        <section style="background:var(--beige-crema);">
+        <section class="about-section" style="background:var(--beige-crema); padding-top: 0;">
             <header class="page-header">
                 <div class="hero-bg"
-                    style="background-image: url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=2000&auto=format&fit=crop'); opacity:0.4;">
+                    style="background-image: url('../assets/img/vitrina_negocio_foto.webp'); opacity:0.3;">
                 </div>
                 <h1>NOSOTROS</h1>
             </header>
             <div class="container about-grid" style="padding-bottom: 8rem;">
                 <div class="about-text">
-                    <p class="font-drama"
+                    <p class="font-drama split-text"
                         style="font-size: 2.5rem; color:var(--naranja-calido); line-height:1.2; margin-bottom: 2rem;">
                         "Somos mucho más que un restaurante, somos un lugar para conectar, compartir y disfrutar."</p>
-                    <p>En Gastro Coffe, creemos que la mejor comida nace del corazón y se prepara con amor. Somos un
+                    <p class="split-text">En Gastro Coffe, creemos que la mejor comida nace del corazón y se prepara con
+                        amor. Somos un
                         hogar donde cada plato cuenta una historia y cada visita se convierte en un recuerdo especial.
                     </p>
-                    <p>Ubicados en el corazón de Bogotá, en la zona de Suba, Gastro Coffe nació del sueño de crear un
+                    <p class="split-text">Ubicados en el corazón de Bogotá, en la zona de Suba, Gastro Coffe nació del
+                        sueño de crear un
                         espacio que combinara la calidez del hogar con la excelencia culinaria. Nuestra filosofía es
                         simple: Servir comida casera 100% natural en un ambiente que invite a quedarse, a conversar y a
                         disfrutar.</p>
                 </div>
-                <div class="about-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=800&auto=format&fit=crop"
-                        alt="Comida casera real preparada con ingredientes naturales en Gastro-Coffe" class="about-img">
+                <div class="about-img-wrapper" id="about-img-wrap">
+                    <img src="../assets/img/negocio_plano general_foto.webp"
+                        alt="Vista general del negocio Gastro-Coffe" class="about-img" loading="lazy">
                 </div>
             </div>
         </section>
@@ -148,18 +150,25 @@
             </div>
         </div>
         <div class="footer-bottom">
-            &copy; 2026 Gastro-Coffe · Todos los derechos reservados. · Creado por Neyder Arias
+            &copy; 2026 Gastro-Coffe · Todos los derechos reservados. · Creado por Camilo Arias
         </div>
     </footer>
 
+    <!-- Botón Volver Arriba -->
+    <button id="back-to-top" class="back-to-top" aria-label="Volver arriba">
+        <img src="../assets/svg/botton_volver arriba.svg" alt="Icono volver arriba">
+    </button>
+
     <!-- JS Imports -->
     <script src="../js/ui.js"></script>
+    <script src="../js/animations.js"></script>
 
     <!-- Script de Inicialización -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             gsap.registerPlugin(ScrollTrigger);
             initUI();
+            initInicioAnimations(); // Usamos las mismas animaciones base para secciones comunes
         });
     </script>
 </body>

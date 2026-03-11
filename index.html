@@ -90,7 +90,7 @@
                 <div class="hero-bg" id="hero-bg"></div>
                 <div class="hero-overlay"></div>
                 <div class="container hero-content">
-                    <h1 class="hero-anim">Gastro-Coffe: Comida de verdad,</h1>
+                    <h1 class="hero-anim">Comida de verdad,</h1>
                     <span class="drama-text hero-anim">hecha con amor.</span>
                     <p class="font-datos hero-anim">Café de especialidad · Platos caseros · Un rincón tuyo en Bogotá</p>
                     <div class="hero-btns hero-anim">
@@ -103,53 +103,50 @@
 
             <!-- Nuestros Números -->
             <section class="numeros-section">
-                <div class="container numeros-grid">
-                    <!-- Panel 1 -->
-                    <div class="panel-card">
-                        <div class="panel-header">
-                            <div class="dot-pulsante"></div>
-                            Abierto hoy
+                <!-- ... existing content ... -->
+            </section>
+
+            <!-- Platos Destacados Grid -->
+            <section class="featured-products-section">
+                <div class="container section-title" style="margin-bottom: 3rem;">
+                    <h2>Nuestros Platos Destacados</h2>
+                </div>
+                <div class="container featured-grid">
+                    <!-- Plato 1 -->
+                    <div class="featured-card" onclick="app.navigate('carta')">
+                        <div class="card-img-wrapper">
+                            <img src="assets/img/Bandeja Corriente_foto.webp" alt="Bandeja Corriente">
                         </div>
-                        <div class="horario-data font-datos">
-                            Lun – Vie &nbsp;&nbsp;6:00 am – 7:00 pm<br>
-                            Sáb – Dom &nbsp;&nbsp;6:00 am – 8:00 pm<span class="cursor-blink"></span>
-                        </div>
-                    </div>
-                    <!-- Panel 2 -->
-                    <div class="panel-card" style="display:flex; flex-direction:column; justify-content:center;">
-                        <div class="panel-header" style="margin-bottom:0.5rem;">Lo que ponemos en la mesa</div>
-                        <div class="alternating-container">
-                            <div class="alt-text active">Comida casera 100% natural</div>
-                            <div class="alt-text">Café de especialidad</div>
-                            <div class="alt-text">Ambiente para quedarse</div>
+                        <div class="card-info">
+                            <h3>Bandeja Corriente</h3>
+                            <p>El sabor de casa en cada bocado tradicional.</p>
                         </div>
                     </div>
-                    <!-- Panel 3 -->
-                    <div class="panel-card">
-                        <div class="panel-header">Dónde estamos</div>
-                        <div class="mapa-animado">
-                            <div class="map-grid">
-                                <div class="map-cell"></div>
-                                <div class="map-cell"></div>
-                                <div class="map-cell"></div>
-                                <div class="map-cell"></div>
-                                <div class="map-cell"></div>
-                                <div class="map-cell"></div>
-                                <div class="map-cell"></div>
-                                <div class="map-cell"></div>
-                            </div>
-                            <div class="map-target" id="map-point"></div>
-                            <!-- Cursor SVG -->
-                            <svg class="map-cursor" id="map-cursor" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="m3 3 7.07 16.97 2.51-7.39 7.39-2.51L3 3z" />
-                                <path d="m13 13 6 6" />
-                            </svg>
+                    <!-- Plato 2 -->
+                    <div class="featured-card" onclick="app.navigate('carta')">
+                        <div class="card-img-wrapper">
+                            <img src="assets/img/Alitas BBQ_foto.webp" alt="Alitas BBQ">
                         </div>
-                        <div class="map-address" id="map-text font-datos">
-                            Km 3 Vía Suba-Cota<br>Bogotá
+                        <div class="card-info">
+                            <h3>Alitas BBQ</h3>
+                            <p>Crujientes, sabrosas y bañadas en salsa secreta.</p>
                         </div>
                     </div>
+                    <!-- Plato 3 -->
+                    <div class="featured-card" onclick="app.navigate('carta')">
+                        <div class="card-img-wrapper">
+                            <img src="assets/img/Carne Asada_foto.webp" alt="Carne Asada">
+                        </div>
+                        <div class="card-info">
+                            <h3>Carne Asada</h3>
+                            <p>Corte tierno asado a la parrilla con el toque de la casa.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="container cta-featured">
+                    <button class="btn btn-primary btn-magnet btn-big" onclick="app.navigate('carta')">
+                        Ver Carta Completa
+                    </button>
                 </div>
             </section>
 
@@ -163,12 +160,12 @@
                         <p class="font-drama split-text">Somos un hogar donde cada plato cuenta una historia y cada
                             visita se convierte en un recuerdo especial.</p>
                         <button class="btn btn-primary" style="margin-top:1rem;"
-                            onclick="app.navigate('nosotros')">Conocer nuestra historia</button>
+                            onclick="app.navigate('nosotros')">Conocer
+                            nuestra historia</button>
                     </div>
                     <div class="about-img-wrapper" id="about-img-wrap">
-                        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1000&auto=format&fit=crop"
-                            alt="Interior acogedor y rústico de Gastro-Coffe en Bogotá" class="about-img"
-                            loading="lazy">
+                        <img src="assets/img/negocio_plano general_foto.webp"
+                            alt="Vista general acogedora de Gastro-Coffe" class="about-img" loading="lazy">
                     </div>
                 </div>
             </section>
@@ -273,9 +270,14 @@
             </div>
         </div>
         <div class="footer-bottom">
-            &copy; 2026 Gastro-Coffe · Todos los derechos reservados. · Creado por Neyder Arias
+            &copy; 2026 Gastro-Coffe · Todos los derechos reservados. · Creado por Camilo Arias
         </div>
     </footer>
+
+    <!-- Botón Volver Arriba -->
+    <button id="back-to-top" class="back-to-top" aria-label="Volver arriba">
+        <img src="assets/svg/botton_volver arriba.svg" alt="Icono volver arriba">
+    </button>
 
     <!-- JS Imports en orden correcto -->
     <script src="js/app.js"></script>

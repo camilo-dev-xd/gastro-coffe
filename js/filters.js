@@ -7,7 +7,7 @@ function initFilters() {
     const menuCards = document.querySelectorAll('.menu-card');
 
     filterBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function () {
             const categoryFilter = this.getAttribute('data-filter');
 
             // Remover clase active de todos los botones
@@ -44,7 +44,4 @@ function initFilters() {
     });
 }
 
-// Inicializar filtros cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', () => {
-    initFilters();
-});
+// El sistema de filtros se inicializa dinámicamente desde products.js -> renderProducts()
