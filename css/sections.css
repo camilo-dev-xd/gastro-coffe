@@ -2,9 +2,8 @@
    C) SECCIÓN "NUESTROS NÚMEROS"
    ========================================================================== */
 .numeros-section {
-    padding: 6rem 0;
+    padding: 0 0 6rem 0;
     background-color: var(--beige-crema);
-    margin-top: -2rem;
     position: relative;
     z-index: 10;
 }
@@ -683,17 +682,6 @@ footer {
     color: var(--naranja-calido);
 }
 
-.status-indicator {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 1rem;
-    border-radius: var(--radio-pequeno);
-    margin-top: 1rem;
-    font-family: var(--font-datos);
-    font-size: 0.85rem;
-}
 
 .footer-bottom {
     text-align: center;
